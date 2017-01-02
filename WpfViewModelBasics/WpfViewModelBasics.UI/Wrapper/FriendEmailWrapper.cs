@@ -35,14 +35,5 @@ namespace WpfViewModelBasics.UI.Wrapper
 
         public bool EmailIsChanged => GetIsChanged(nameof(Email));
 
-        public string Comment
-        {
-            get { return GetValue<string>(); }
-            set { SetValue(value); }
-        }
-
-        public string CommentOriginalValue => GetOriginalValue<string>(nameof(Comment));
-
-        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
     }
 }

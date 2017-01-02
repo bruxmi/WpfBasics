@@ -10,13 +10,15 @@ using WpfViewModelBasics.Core.Entities;
 
 namespace WpfViewModelBasics.Context
 {
-    public class FriendStorageInitializer : DropCreateDatabaseIfModelChanges<FriendStorageContext>
+    public class FriendStorageInitializer : DropCreateDatabaseAlways<FriendStorageContext>
     {
         public override void InitializeDatabase(FriendStorageContext context)
         {
             context.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction
                 , string.Format("ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE", context.Database.Connection.Database));
             base.InitializeDatabase(context);
+            context.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction
+                , string.Format("ALTER DATABASE [{0}] SET MULTI_USER WITH ROLLBACK IMMEDIATE", context.Database.Connection.Database));
         }
 
         protected override void Seed(FriendStorageContext context)

@@ -21,7 +21,7 @@ namespace WpfViewModelBasics.UnitTests.Wrapper
             _friend = new FriendVm
             {
                 FirstName = "Thomas",
-                Address = new AddressVm { City = "Berlin"},
+                Address = new AddressVm { City = "Berlin" },
                 Emails = new List<FriendEmailVm>()
             };
         }

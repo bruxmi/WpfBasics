@@ -10,6 +10,7 @@ namespace WpfViewModelBasics.UI.StartUp
         {
             container.InjectViewModels(serviceLifetime);
             container.InjectMappingServices(serviceLifetime);
+            container.InjectViewServices(serviceLifetime);
         }
     }
 }

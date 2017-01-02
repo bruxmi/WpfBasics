@@ -17,6 +17,7 @@ namespace WpfViewModelBasics.ViewModelMapping.MappingServices
             {
                 Id = vm.Id,
                 Email = vm.Email,
+                FriendId = vm.FriendId
             };
         }
 
@@ -32,6 +33,7 @@ namespace WpfViewModelBasics.ViewModelMapping.MappingServices
             {
                 Id = entity.Id,
                 Email = entity.Email,
+                FriendId = entity.FriendId
             };
         }
 

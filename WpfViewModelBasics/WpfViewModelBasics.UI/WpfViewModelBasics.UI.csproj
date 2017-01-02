@@ -92,11 +92,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Command\AsyncDelegateCommand.cs" />
     <Compile Include="Command\DelegateCommand.cs" />
+    <Compile Include="Enums\MessageDialogResult.cs" />
+    <Compile Include="Events\CloseFriendEditViewEvent.cs" />
+    <Compile Include="Events\SaveFriendEditViewEvent.cs" />
     <Compile Include="Events\OpenFriendEditViewEvent.cs" />
     <Compile Include="Interfaces\IFriendEditViewModel.cs" />
     <Compile Include="Interfaces\IFriendNavigationViewModel.cs" />
+    <Compile Include="Interfaces\IMessageDialogService.cs" />
     <Compile Include="StartUp\Container\MappingServiceContainer.cs" />
+    <Compile Include="StartUp\Container\ViewServiceContainer.cs" />
     <Compile Include="StartUp\ViewModelBootstrapper.cs" />
     <Compile Include="StartUp\Container\ViewModelContainer.cs" />
     <Compile Include="ViewModel\Base\ViewModelBase.cs" />
@@ -111,6 +117,7 @@
     <Compile Include="View\NavigationView.xaml.cs">
       <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Services\MessageDialogService.cs" />
     <Compile Include="Wrapper\AddressWrapper.cs" />
     <Compile Include="Wrapper\ChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\FriendEmailWrapper.cs" />

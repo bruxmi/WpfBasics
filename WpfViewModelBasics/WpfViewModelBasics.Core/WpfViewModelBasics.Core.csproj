@@ -74,6 +74,10 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Initializer\IRepositoryInitializer.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
+    <Compile Include="Interfaces\Services\Command\IAddressCommandService.cs" />
+    <Compile Include="Interfaces\Services\Command\IFriendCommandService.cs" />
+    <Compile Include="Interfaces\Services\Command\IFriendEmailCommandService.cs" />
+    <Compile Include="Interfaces\Services\Command\IFriendEmailQueryService.cs" />
     <Compile Include="Interfaces\Services\Query\IFriendQueryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Command\IAddCommandRepository.cs" />
@@ -83,7 +87,6 @@
     <Compile Include="Repository\Query\IQueryRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaces\Services\Command\" />
     <Folder Include="Interfaces\Services\Mapping\" />
   </ItemGroup>
   <ItemGroup>

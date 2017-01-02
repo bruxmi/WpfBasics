@@ -29,7 +29,8 @@ namespace WpfViewModelBasics.ViewModelMapping.MappingServices
                 IsDeveloper = vm.IsDeveloper,
                 Birthday = vm.Birthday,
                 Address = this._addressMappingService.ViewModelToEntity(vm.Address),
-                Emails = this._emailMappingService.ViewModelToEntity(vm.Emails),
+                AddressId = vm.Address.Id
+                //Emails = this._emailMappingService.ViewModelToEntity(vm.Emails)
             };
         }
 
@@ -49,7 +50,7 @@ namespace WpfViewModelBasics.ViewModelMapping.MappingServices
                 IsDeveloper = entity.IsDeveloper,
                 Birthday = entity.Birthday,
                 Address = this._addressMappingService.EntityToViewModel(entity.Address),
-                Emails = this._emailMappingService.EntityToViewModel(entity.Emails.ToList()),
+                Emails = this._emailMappingService.EntityToViewModel(entity.Emails.ToList())
             };
         }
 

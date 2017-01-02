@@ -9,8 +9,8 @@
         WindowStartupLocation="CenterScreen"
         Title="MainWindow"                       
         Height="600"
-        Width="800">
-    <Grid>
+        Width="1000">
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="Auto"/>
@@ -23,23 +23,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--Navigation-->
-        <view:NavigationView DataContext="{Binding NavigationViewModel}" Grid.Row="2" Background="Azure"/>
-        <GridSplitter Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Width="5" Background="CadetBlue" HorizontalAlignment="Center"/>
+        <view:NavigationView DataContext="{Binding NavigationViewModel}" Grid.Row="2" Background="White"/>
+        <GridSplitter Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Width="5" Background="DeepSkyBlue" HorizontalAlignment="Center"/>
 
         <!--Tabs-->
-        <TabControl ItemsSource="{Binding FriendEditViewModels}"
-                SelectedItem="{Binding SelectedFriendEditViewModel, Mode=TwoWay}" 
-                Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Background="White">
+        <TabControl ItemsSource="{Binding FriendEditViewModels}" SelectedItem="{Binding SelectedFriendEditViewModel, Mode=TwoWay}" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Background="White">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Friend.FirstName,ValidatesOnNotifyDataErrors=False}"/>
                         <TextBlock Text="{Binding Friend.LastName}" Margin="5 0 20 0"/>
-                        <Button Content="X" Command="{Binding RelativeSource=
-                                  {RelativeSource FindAncestor,
-                                  AncestorType={x:Type TabControl}},
-                                  Path=DataContext.CloseFriendTabCommand}"
-                                CommandParameter="{Binding}"
+                        <Button Content="X" Command="{Binding RelativeSource= {RelativeSource FindAncestor, AncestorType={x:Type TabControl}}, Path=DataContext.CloseFriendTabCommand}"
+                                CommandParameter="{Binding}" 
                                 Width="20" Height="20" FontWeight="Bold" FontSize="12"
                                 Foreground="White" Padding="0">
                         </Button>
