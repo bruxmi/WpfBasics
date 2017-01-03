@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,12 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MappingServices\FriendEmailMappingService.cs" />
-    <Compile Include="MappingServices\AddressMappingService.cs" />
-    <Compile Include="MappingServices\FriendMappingService.cs" />
-    <Compile Include="MappingServices\IAddressMappingService.cs" />
-    <Compile Include="MappingServices\IFriendEmailMappingService.cs" />
-    <Compile Include="MappingServices\IFriendMappingService.cs" />
+    <Compile Include="AutoMapperConfig.cs" />
+    <Compile Include="MappingServices\AutoMappingService.cs" />
+    <Compile Include="MappingServices\IAutoMapperService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AddressVm.cs" />
     <Compile Include="ViewModel\FriendVm.cs" />
@@ -56,6 +57,9 @@
       <Project>{82042b1a-b588-450a-b02f-27ca0abcd3af}</Project>
       <Name>WpfViewModelBasics.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

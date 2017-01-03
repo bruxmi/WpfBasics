@@ -11,6 +11,7 @@ using WpfViewModelBasics.Core.Registration;
 using WpfViewModelBasics.UI.StartUp;
 using WpfViewModelBasics.UI.View;
 using WpfViewModelBasics.UI.ViewModel;
+using WpfViewModelBasics.ViewModelMapping;
 
 namespace WpfViewModelBasics.UI
 {

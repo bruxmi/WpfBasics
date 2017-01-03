@@ -1,18 +1,18 @@
-﻿using System;
-using Microsoft.Practices.Unity;
-using WpfViewModelBasics.UI.Interfaces;
-using WpfViewModelBasics.UI.ViewModel;
-using WpfViewModelBasics.ViewModelMapping.MappingServices;
+﻿
+using WpfViewModelBasics.ViewModelMapping;
 
 namespace WpfViewModelBasics.UI.StartUp.Container
 {
+    using System;
+    using AutoMapper;
+    using Microsoft.Practices.Unity;
+    using ViewModelMapping.MappingServices;
     public static class MappingServiceContainer
     {
         public static void InjectMappingServices(this IUnityContainer container, Func<LifetimeManager> serviceLifetime)
         {
-            container.RegisterType<IFriendMappingService, FriendMappingService>(serviceLifetime());
-            container.RegisterType<IAddressMappingService, AddressMappingService>(serviceLifetime());
-            container.RegisterType<IFriendEmailMappingService, FriendEmailMappingService>(serviceLifetime());
+            container.RegisterInstance<IMapper>(new Mapper(AutoMapperConfig.Configure()));
+            container.RegisterType<IAutoMapperService, AutoMappingService>(serviceLifetime());
         }
     }
 }
