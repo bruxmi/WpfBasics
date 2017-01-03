@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Prism.Events;
 
-namespace WpfViewModelBasics.UI.Interfaces
+namespace WpfViewModelBasics.UI.Events
 {
-    public interface IFriendNavigationViewModel
+    public class DeleteFriendEvent: PubSubEvent<int>
     {
-        Task Load();
     }
 }

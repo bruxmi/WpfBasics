@@ -9,7 +9,7 @@
     <UserControl.Resources>
     </UserControl.Resources>
     <ScrollViewer>
-    <ItemsControl ItemsSource="{Binding NavigationItems}" Margin="20">
+    <ItemsControl ItemsSource="{Binding NavigationItems}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <controls:Tile Title="{Binding DisplayName}" TiltFactor="3" Command="{Binding OpenFriendEditViewCommand}" Width="100" Height="100">

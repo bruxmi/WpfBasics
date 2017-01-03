@@ -1,27 +1,29 @@
-﻿using System.Collections.Generic;
-using WpfViewModelBasics.Core.Interfaces.Services.Query;
-using WpfViewModelBasics.Core.Repository.Query;
+﻿using System.Threading.Tasks;
 
 namespace WpfViewModelBasics.Business.Friend
 {
+    using System.Collections.Generic;
+    using Core.Interfaces.Services.Query;
+    using Core.Repository.Query;
+    using Core.Entities;
     public class FriendQueryService: IFriendQueryService
     {
-        private readonly IQueryRepository<Core.Entities.Friend> _friendQueryRepository;
+        private readonly IQueryRepository<Friend> _friendQueryRepository;
 
-        public FriendQueryService(IQueryRepository<Core.Entities.Friend> friendQueryRepository)
+        public FriendQueryService(IQueryRepository<Friend> friendQueryRepository)
         {
             _friendQueryRepository = friendQueryRepository;
         }
 
-        public List<Core.Entities.Friend> GetAllFriends()
+        public async Task<List<Friend>> GetAllFriendsAsync()
         {
-            var result = this._friendQueryRepository.GetAll();
+            var result = await this._friendQueryRepository.GetAllAsync();
             return result;
         }
 
-        public Core.Entities.Friend GetFriendById(int friendId)
+        public async Task<Friend> GetFriendByIdAsync(int friendId)
         {
-            var friend = this._friendQueryRepository.Single(a => a.Id == friendId);
+            var friend = await this._friendQueryRepository.SingleAsync(a => a.Id == friendId);
             return friend;
         }
     }

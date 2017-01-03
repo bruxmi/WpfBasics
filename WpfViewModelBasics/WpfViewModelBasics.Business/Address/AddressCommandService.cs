@@ -1,23 +1,27 @@
-﻿
-namespace WpfViewModelBasics.Business.Address
+﻿namespace WpfViewModelBasics.Business.Address
 {
-    using System;
     using System.Threading.Tasks;
     using Core.Interfaces.Services.Command;
     using Core.Repository.Command;
+    using Core.Entities;
 
     public class AddressCommandService: IAddressCommandService
     {
-        private readonly ICommandRepository<Core.Entities.Address> _addressCommandRepository;
+        private readonly ICommandRepository<Address> _addressCommandRepository;
 
-        public AddressCommandService(ICommandRepository<Core.Entities.Address> addressCommandRepository)
+        public AddressCommandService(ICommandRepository<Address> addressCommandRepository)
         {
             _addressCommandRepository = addressCommandRepository;
         }
 
-        public async Task UpdateAddress(Core.Entities.Address address)
+        public async Task UpdateAddressAsync(Address address)
         {
            await this._addressCommandRepository.UpdateAsync(address);
+        }
+
+        public async Task AddAddressAsync(Address address)
+        {
+            await this._addressCommandRepository.AddAsync(address);
         }
     }
 }

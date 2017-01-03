@@ -24,5 +24,13 @@ namespace WpfViewModelBasics.Context
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Friend> Friends { get; set; }
         public virtual DbSet<FriendEmail> FriendEmails { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Friend>()
+                .HasMany(e => e.Emails)
+                .WithOptional()
+                .WillCascadeOnDelete();
+        }
     }
 }

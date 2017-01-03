@@ -1,4 +1,10 @@
 ﻿
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using WpfViewModelBasics.UI.Command;
+using WpfViewModelBasics.UI.Events;
+
 namespace WpfViewModelBasics.UI.ViewModel
 {
     using System.Collections.Generic;
@@ -10,6 +16,7 @@ namespace WpfViewModelBasics.UI.ViewModel
     using Base;
     using ViewModelMapping.MappingServices;
     using ViewModelMapping.ViewModel;
+    using System;
 
     public class FriendNavigationViewModel: ViewModelBase, IFriendNavigationViewModel
     {
@@ -25,6 +32,30 @@ namespace WpfViewModelBasics.UI.ViewModel
             _mappingService = mappingService;
             _friendQueryService = friendQueryService;
             NavigationItems = new ObservableCollection<FriendNavigationItemViewModel>();
+            _eventAggregator.GetEvent<SaveFriendEditViewEvent>().Subscribe(OnFriendSaved);
+            _eventAggregator.GetEvent<DeleteFriendEvent>().Subscribe(a => RemoveNavigationItem(a));
+        }
+
+        private void OnFriendSaved(FriendVm savedFriend)
+        {
+            var navigationItem = NavigationItems.SingleOrDefault(item => item.FriendId == savedFriend.Id);
+            if (navigationItem != null)
+            {
+                navigationItem.DisplayName = string.Format("{0} {1}", savedFriend.FirstName, savedFriend.LastName);
+            }
+            else
+            {
+                NavigationItems.Add(new FriendNavigationItemViewModel(savedFriend.Id, savedFriend.FirstName + " " + savedFriend.LastName, _eventAggregator));
+            }
+        }
+
+        private void RemoveNavigationItem(int? friendId)
+        {
+            if (friendId != null)
+            {
+                var navigationItemToDelete = NavigationItems.SingleOrDefault(s => s.FriendId == friendId.Value);
+                NavigationItems.Remove(navigationItemToDelete);
+            }
         }
 
         public ObservableCollection<FriendNavigationItemViewModel> NavigationItems
@@ -34,9 +65,9 @@ namespace WpfViewModelBasics.UI.ViewModel
         }
 
 
-        public void Load()
+        public async Task Load()
         {
-            var friendEntities = this._friendQueryService.GetAllFriends();
+            var friendEntities = await this._friendQueryService.GetAllFriendsAsync();
             var friends = this._mappingService.MapTo<IEnumerable<Friend>, IEnumerable<FriendVm>>(friendEntities);
             NavigationItems.Clear();
             foreach (var friend in friends)

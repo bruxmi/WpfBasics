@@ -9,7 +9,7 @@ namespace WpfViewModelBasics.UI.Interfaces
 {
     public interface IFriendEditViewModel
     {
-        void Load(int friendId);
+        Task Load(int? friendId = null);
         FriendWrapper Friend { get; }
     }
 }

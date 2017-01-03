@@ -10,6 +10,7 @@ using WpfViewModelBasics.UI.Enums;
 using WpfViewModelBasics.UI.Events;
 using WpfViewModelBasics.UI.Interfaces;
 using WpfViewModelBasics.UI.ViewModel.Base;
+using WpfViewModelBasics.ViewModelMapping.ViewModel;
 
 
 namespace WpfViewModelBasics.UI.ViewModel
@@ -26,17 +27,27 @@ namespace WpfViewModelBasics.UI.ViewModel
             IMessageDialogService messageDialogService) 
         {
             _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<OpenFriendEditViewEvent>().Subscribe(OnOpenFriendTab);
+            _eventAggregator.GetEvent<OpenFriendEditViewEvent>().Subscribe(async a => await OnOpenFriendTab(a));
 
             _friendEditViewModelCreator = friendEditViewModelCreator;
             _messageDialogService = messageDialogService;
             this.NavigationViewModel = navigationViewModel;
             this.FriendEditViewModels = new ObservableCollection<IFriendEditViewModel>();
             CloseFriendTabCommand = new AsyncDelegateCommand(async friend => await CloseFriendEditViewExecute(friend as IFriendEditViewModel));
+            AddFriendCommand = new AsyncDelegateCommand(OnAddFriendExecute);
+            _eventAggregator.GetEvent<DeleteFriendEvent>().Subscribe(a => DeleteFriendEditViewExecute(a));
         }
 
+        private void DeleteFriendEditViewExecute(int? friendId)
+        {
+            if (friendId != null)
+            {
+                var friendEditViewModel = FriendEditViewModels.SingleOrDefault(s => s.Friend.Id == friendId.Value);
+                FriendEditViewModels.Remove(friendEditViewModel);
+            }
+        }
 
-        public ObservableCollection<IFriendEditViewModel> FriendEditViewModels { get; private set; }
+        public ObservableCollection<IFriendEditViewModel> FriendEditViewModels { get; }
 
         public IFriendEditViewModel SelectedFriendEditViewModel
         {
@@ -50,11 +61,28 @@ namespace WpfViewModelBasics.UI.ViewModel
             set { SetValue(value); }
         }
 
-        public IFriendNavigationViewModel NavigationViewModel { get; private set; }
-
+        public IFriendNavigationViewModel NavigationViewModel { get; }
 
         public ICommand CloseFriendTabCommand { get; set; }
 
+        public ICommand AddFriendCommand { get; set; }
+
+        public bool IsLoading
+        {
+            get { return GetValue<bool>(); }
+            set
+            {
+                SetValue(value);
+                CanShowFriendTab = !value;
+            }
+        }
+
+        public bool CanShowFriendTab
+        {
+            get { return GetValue<bool>(); }
+            set { SetValue(value); }
+        }
+        
         private async Task CloseFriendEditViewExecute(IFriendEditViewModel friendEditVmToClose)
         {
             if (friendEditVmToClose != null)
@@ -71,21 +99,32 @@ namespace WpfViewModelBasics.UI.ViewModel
             FriendEditViewModels.Remove(friendEditVmToClose);
         }
 
-        private void OnOpenFriendTab(int friendId)
+        private async Task OnOpenFriendTab(int friendId)
         {
             var friendEditVm = FriendEditViewModels.SingleOrDefault(vm => vm.Friend.Id == friendId);
             if (friendEditVm == null)
             {
                 friendEditVm = this._friendEditViewModelCreator();
                 FriendEditViewModels.Add(friendEditVm);
-                friendEditVm.Load(friendId);
+                await friendEditVm.Load(friendId);
             }
             SelectedFriendEditViewModel = friendEditVm;
         }
 
-        public void Load()
+        private async Task OnAddFriendExecute(object obj)
         {
-            NavigationViewModel.Load();
+            var friendEditVm = this._friendEditViewModelCreator();
+            FriendEditViewModels.Add(friendEditVm);
+            await friendEditVm.Load();
+            SelectedFriendEditViewModel = friendEditVm;        
+        }
+
+        public async Task Load()
+        {
+            IsLoading = true;
+            FriendEditViewModels.Clear();
+            await NavigationViewModel.Load();
+            IsLoading = false;
         }
     }
 }

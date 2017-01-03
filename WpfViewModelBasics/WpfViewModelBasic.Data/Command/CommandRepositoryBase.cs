@@ -29,7 +29,7 @@ namespace WpfViewModelBasic.Data.Command
 			}
 			this.context.Entry(entity).State = EntityState.Added;
 
-            await this.context.SaveChangesAsync();
+           await this.context.SaveChangesAsync();
         }
 
         public virtual async Task AddListAsync(ICollection<T> entityList)

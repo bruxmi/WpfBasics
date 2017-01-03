@@ -9,6 +9,6 @@ namespace WpfViewModelBasics.Core.Interfaces.Services.Command
 {
     public interface IFriendEmailQueryService
     {
-        List<FriendEmail> GetFriendEmailByFriendId(int friendId);
+        Task<List<FriendEmail>> GetFriendEmailByFriendIdAsync(int friendId);
     }
 }

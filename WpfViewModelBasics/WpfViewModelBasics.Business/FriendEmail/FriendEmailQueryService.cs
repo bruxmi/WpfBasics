@@ -1,4 +1,6 @@
-﻿namespace WpfViewModelBasics.Business.FriendEmail
+﻿using System.Threading.Tasks;
+
+namespace WpfViewModelBasics.Business.FriendEmail
 {
     using System.Collections.Generic;
     using Core.Entities;
@@ -13,9 +15,9 @@
         {
             _friendEmailQueryRepository = friendEmailQueryRepository;
         }
-        public List<FriendEmail> GetFriendEmailByFriendId(int friendId)
+        public async Task<List<FriendEmail>> GetFriendEmailByFriendIdAsync(int friendId)
         {
-            var result = this._friendEmailQueryRepository.Find(a => a.FriendId == friendId);
+            var result = await this._friendEmailQueryRepository.FindAsync(a => a.FriendId == friendId);
             return result;
         }
     }

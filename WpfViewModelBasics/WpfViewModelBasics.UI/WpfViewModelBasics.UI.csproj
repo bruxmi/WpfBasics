@@ -98,8 +98,10 @@
     </ApplicationDefinition>
     <Compile Include="Command\AsyncDelegateCommand.cs" />
     <Compile Include="Command\DelegateCommand.cs" />
+    <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Enums\MessageDialogResult.cs" />
     <Compile Include="Events\CloseFriendEditViewEvent.cs" />
+    <Compile Include="Events\DeleteFriendEvent.cs" />
     <Compile Include="Events\SaveFriendEditViewEvent.cs" />
     <Compile Include="Events\OpenFriendEditViewEvent.cs" />
     <Compile Include="Interfaces\IFriendEditViewModel.cs" />
@@ -127,6 +129,10 @@
     <Compile Include="Wrapper\FriendEmailWrapper.cs" />
     <Compile Include="Wrapper\FriendWrapper.cs" />
     <Compile Include="Wrapper\ModelWrapper.cs" />
+    <Page Include="Styles\Label.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\TextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -22,7 +22,7 @@ namespace WpfViewModelBasics.UI
     {
         private MainViewModel _mainViewModel;
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             var container = new UnityContainer();
@@ -31,7 +31,7 @@ namespace WpfViewModelBasics.UI
             _mainViewModel = container.Resolve<MainViewModel>();
             MainWindow = new MainWindow(_mainViewModel);
             MainWindow.Show();
-            _mainViewModel.Load();
+            await _mainViewModel.Load();
         }
     }
 }

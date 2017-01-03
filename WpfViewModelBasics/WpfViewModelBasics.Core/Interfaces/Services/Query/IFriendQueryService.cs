@@ -9,7 +9,7 @@ namespace WpfViewModelBasics.Core.Interfaces.Services.Query
 {
     public interface IFriendQueryService
     {
-        List<Friend> GetAllFriends();
-        Friend GetFriendById(int friendId);
+        Task<List<Friend>> GetAllFriendsAsync();
+        Task<Friend> GetFriendByIdAsync(int friendId);
     }
 }
