@@ -1,4 +1,7 @@
-﻿namespace WpfViewModelBasics.Business.FriendEmail
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace WpfViewModelBasics.Business.FriendEmail
 {
     using Core.Repository.Command;
     using System.Threading.Tasks;
@@ -17,6 +20,21 @@
         public async Task UpdateEmail(FriendEmail friendEmail)
         {
             await this._friendEmailCommandRepository.UpdateAsync(friendEmail);
+        }
+
+        public async Task<FriendEmail> AddEmailAsync(FriendEmail friendEmail)
+        {
+            return await this._friendEmailCommandRepository.AddAsync(friendEmail);
+        }
+
+        public async Task<List<FriendEmail>> AddEmailListAsync(List<FriendEmail> friendEmails)
+        {
+            return (await this._friendEmailCommandRepository.AddListAsync(friendEmails)).ToList();
+        }
+
+        public async Task UpdateEmailListAsync(List<FriendEmail> friendEmails)
+        {
+            await this._friendEmailCommandRepository.UpdateListAsync(friendEmails);
         }
     }
 }

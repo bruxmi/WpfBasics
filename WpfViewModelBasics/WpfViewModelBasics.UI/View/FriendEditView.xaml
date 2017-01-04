@@ -53,8 +53,11 @@
         <Label Content="Streetnumber" Grid.Row="3" Grid.Column="3" Margin="5"/>
         <TextBox Text="{Binding Friend.Address.StreetNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="4"/>
 
-        <Label Content="Emails" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" Margin="5" Style="{StaticResource LabelStyle}"/> 
-
+        <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal">
+            <Label Content="Emails"  HorizontalAlignment="Left" Margin="5,0,0,0" Style="{StaticResource LabelStyle}"/>
+            <Button Content="Add email"  Style="{DynamicResource SquareButtonStyle}" Margin="5,0,0,0" Command="{Binding AddFriendEmailCommand}"/>
+        </StackPanel>
+        
         <DataGrid ItemsSource="{Binding Friend.Emails}"  Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" Margin="5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" IsReadOnly="True" Binding="{Binding Id}"/>

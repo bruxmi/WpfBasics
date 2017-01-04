@@ -7,13 +7,13 @@ namespace WpfViewModelBasics.Context.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddedCascadingDelete : IMigrationMetadata
+    public sealed partial class FixedRelationOfFriendAndFriendEmail : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedCascadingDelete));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FixedRelationOfFriendAndFriendEmail));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701031311544_AddedCascadingDelete"; }
+            get { return "201701040954490_FixedRelationOfFriendAndFriendEmail"; }
         }
         
         string IMigrationMetadata.Source

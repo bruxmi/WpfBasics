@@ -9,7 +9,7 @@ namespace WpfViewModelBasics.Core.Interfaces.Services.Command
 {
     public interface IFriendCommandService
     {
-        Task AddFriendAsync(Friend friend);
+        Task<Friend> AddFriendAsync(Friend friend);
         Task UpdateFriendAsync(Friend friend);
         Task DeleteFriendAsync(Friend friendEntity);
     }

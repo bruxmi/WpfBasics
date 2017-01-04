@@ -41,7 +41,7 @@ namespace WpfViewModelBasics.UI.ViewModel
             var navigationItem = NavigationItems.SingleOrDefault(item => item.FriendId == savedFriend.Id);
             if (navigationItem != null)
             {
-                navigationItem.DisplayName = string.Format("{0} {1}", savedFriend.FirstName, savedFriend.LastName);
+                navigationItem.DisplayName = $"{savedFriend.FirstName} {savedFriend.LastName}";
             }
             else
             {

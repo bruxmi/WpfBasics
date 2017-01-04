@@ -61,9 +61,9 @@
     <Compile Include="Migrations\201612301026407_RemovedFriendGroupId.Designer.cs">
       <DependentUpon>201612301026407_RemovedFriendGroupId.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701031311544_AddedCascadingDelete.cs" />
-    <Compile Include="Migrations\201701031311544_AddedCascadingDelete.Designer.cs">
-      <DependentUpon>201701031311544_AddedCascadingDelete.cs</DependentUpon>
+    <Compile Include="Migrations\201701040954490_FixedRelationOfFriendAndFriendEmail.cs" />
+    <Compile Include="Migrations\201701040954490_FixedRelationOfFriendAndFriendEmail.Designer.cs">
+      <DependentUpon>201701040954490_FixedRelationOfFriendAndFriendEmail.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,8 +85,8 @@
     <EmbeddedResource Include="Migrations\201612301026407_RemovedFriendGroupId.resx">
       <DependentUpon>201612301026407_RemovedFriendGroupId.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701031311544_AddedCascadingDelete.resx">
-      <DependentUpon>201701031311544_AddedCascadingDelete.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701040954490_FixedRelationOfFriendAndFriendEmail.resx">
+      <DependentUpon>201701040954490_FixedRelationOfFriendAndFriendEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

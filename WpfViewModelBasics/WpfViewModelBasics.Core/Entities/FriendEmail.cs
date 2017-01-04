@@ -9,8 +9,9 @@ namespace WpfViewModelBasics.Core.Entities
 
         public string Email { get; set; }
 
+        [ForeignKey("FriendId")]
         public virtual Friend Friend { get; set; }
-        [ForeignKey("Friend")]
-        public int? FriendId { get; set; }
+
+        public int FriendId { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace WpfViewModelBasics.Context
         {
             modelBuilder.Entity<Friend>()
                 .HasMany(e => e.Emails)
-                .WithOptional()
+                .WithRequired(email => email.Friend)
                 .WillCascadeOnDelete();
         }
     }

@@ -19,9 +19,9 @@
            await this._addressCommandRepository.UpdateAsync(address);
         }
 
-        public async Task AddAddressAsync(Address address)
+        public async Task<Address> AddAddressAsync(Address address)
         {
-            await this._addressCommandRepository.AddAsync(address);
+            return await this._addressCommandRepository.AddAsync(address);
         }
     }
 }

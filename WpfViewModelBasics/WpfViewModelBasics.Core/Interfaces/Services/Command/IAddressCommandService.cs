@@ -10,6 +10,6 @@ namespace WpfViewModelBasics.Core.Interfaces.Services.Command
     public interface IAddressCommandService
     {
         Task UpdateAddressAsync(Address address);
-        Task AddAddressAsync(Address addressEntity);
+        Task<Address> AddAddressAsync(Address addressEntity);
     }
 }

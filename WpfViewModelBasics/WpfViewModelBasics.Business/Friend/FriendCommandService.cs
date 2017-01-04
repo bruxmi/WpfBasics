@@ -13,9 +13,9 @@
             _friendCommandRepository = friendCommandRepository;
         }
 
-        public async Task AddFriendAsync(Friend friend)
+        public async Task<Friend> AddFriendAsync(Friend friend)
         {
-            await this._friendCommandRepository.AddAsync(friend);
+            return await this._friendCommandRepository.AddAsync(friend);
         }
 
         public async Task UpdateFriendAsync(Friend friend)

@@ -10,8 +10,8 @@ namespace WpfViewModelBasics.Core.Repository.Command
     public interface IAddCommandRepository<T>
         where T : class
     {
-        Task AddAsync(T entity);
+        Task<T> AddAsync(T entity);
 
-        Task AddListAsync(ICollection<T> entityList);
+        Task<ICollection<T>> AddListAsync(ICollection<T> entityList);
     }
 }

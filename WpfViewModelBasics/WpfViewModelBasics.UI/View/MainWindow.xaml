@@ -18,7 +18,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -30,6 +30,7 @@
         <StackPanel Background="LightGray" Grid.Column="0">
             <Button Height="40" Width="80" Style="{DynamicResource SquareButtonStyle}" Content="Add friend" HorizontalAlignment="Left" Margin="5" Command="{Binding AddFriendCommand}"/>
         </StackPanel>
+        <GridSplitter Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Width="1" Background="DarkGray" HorizontalAlignment="Center"/>
         <view:NavigationView DataContext="{Binding NavigationViewModel}" Grid.Column="0" Grid.Row="2" Background="LightGray" Padding="5,0,5,0"/>
         <GridSplitter Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Width="1" Background="DarkGray" HorizontalAlignment="Center"/>
         <!--Tabs-->
