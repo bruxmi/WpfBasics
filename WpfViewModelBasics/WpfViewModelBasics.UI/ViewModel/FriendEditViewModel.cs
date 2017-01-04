@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MediatR;
 
 namespace WpfViewModelBasics.UI.ViewModel
 {
@@ -16,29 +17,30 @@ namespace WpfViewModelBasics.UI.ViewModel
     using Wrapper;
     using ViewModelMapping.MappingServices;
     using ViewModelMapping.ViewModel;
+    using Core.Requests.Requests.BusinessRequest.Friend;
 
     public class FriendEditViewModel : ViewModelBase, IFriendEditViewModel
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IFriendQueryService _friendQueryService;
-        private readonly IFriendCommandService _friendCommandService;
         private readonly IFriendEmailCommandService _friendEmailCommandService;
         private readonly IAddressCommandService _addressCommandService;
         private readonly IAutoMapperService _mapper;
+        private readonly IMediator _mediator;
 
         public FriendEditViewModel(IEventAggregator eventAggregator,
             IFriendQueryService friendQueryService,
-            IFriendCommandService friendCommandService,
             IFriendEmailCommandService friendEmailCommandService,
             IAddressCommandService addressCommandService,
-            IAutoMapperService mapper)
+            IAutoMapperService mapper, 
+            IMediator mediator)
         {
             _eventAggregator = eventAggregator;
             _friendQueryService = friendQueryService;
-            _friendCommandService = friendCommandService;
             _friendEmailCommandService = friendEmailCommandService;
             _addressCommandService = addressCommandService;
             _mapper = mapper;
+            _mediator = mediator;
             DeleteFriendCommand = new AsyncDelegateCommand(async a => await OnDeleteFriendExecute(a));
             SaveFriendCommand = new AsyncDelegateCommand(async a => await OnSaveExecute(a));
             RejectChangesCommand = new DelegateCommand(OnRejectChangesExecute);
@@ -69,9 +71,9 @@ namespace WpfViewModelBasics.UI.ViewModel
 
         private async Task OnDeleteFriendExecute(object obj)
         {
-            var friendEntity = this._mapper.MapTo<FriendVm, Friend>(Friend.Model);
-            await this._friendCommandService.DeleteFriendAsync(friendEntity);
-            _eventAggregator.GetEvent<DeleteFriendEvent>().Publish(friendEntity.Id);
+            //var friendEntity = this._mapper.MapTo<FriendVm, Friend>(Friend.Model);
+            //await this._mediator.SendAsync(new DeleteFriendRequest { Friend = friendEntity });
+            //_eventAggregator.GetEvent<DeleteFriendEvent>().Publish(friendEntity.Id);
         }
 
         private async Task OnSaveExecute(object obj)
@@ -121,11 +123,11 @@ namespace WpfViewModelBasics.UI.ViewModel
             var friendEntity = this._mapper.MapTo<FriendVm, Friend>(Friend.Model);
             if (friendEntity.Id == 0)
             {
-                friendEntity = await _friendCommandService.AddFriendAsync(friendEntity);
+                friendEntity = await this._mediator.SendAsync(new AddFriendRequest {Friend = friendEntity});
             }
             else
             {
-                await this._friendCommandService.UpdateFriendAsync(friendEntity);
+                //await this._mediator.SendAsync(new UpdateFriendRequest { Friend = friendEntity });
             }
             Friend.Id = friendEntity.Id;
             Friend.Address.Id = friendEntity.Address.Id;

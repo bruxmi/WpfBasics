@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Autofac;
 using Microsoft.Practices.Unity;
 using WpfViewModelBasics.Core.Registration;
 using WpfViewModelBasics.UI.StartUp;
@@ -25,9 +26,15 @@ namespace WpfViewModelBasics.UI
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var container = new UnityContainer();
-            BusinessBootstrapper.InitializeBusiness(container, () => new ContainerControlledLifetimeManager());
-            ViewModelBootstrapper.InitializeViewModels(container, () => new ContainerControlledLifetimeManager());
+            //var container = new UnityContainer();
+            //BusinessBootstrapper.InitializeBusiness(container, () => new ContainerControlledLifetimeManager());
+            //ViewModelBootstrapper.InitializeViewModels(container, () => new ContainerControlledLifetimeManager());
+            //_mainViewModel = container.Resolve<MainViewModel>();
+
+            var containerbuilder = new ContainerBuilder();
+            BusinessBootstrapper.InitializeBusinessWithAutoac(containerbuilder);
+            ViewModelBootstrapper.InitializeViewModelsWithAutofac(containerbuilder);
+            var container = containerbuilder.Build();
             _mainViewModel = container.Resolve<MainViewModel>();
             MainWindow = new MainWindow(_mainViewModel);
             MainWindow.Show();

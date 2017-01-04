@@ -1,4 +1,5 @@
 ﻿
+using Autofac;
 using WpfViewModelBasics.ViewModelMapping;
 
 namespace WpfViewModelBasics.UI.StartUp.Container
@@ -13,6 +14,12 @@ namespace WpfViewModelBasics.UI.StartUp.Container
         {
             container.RegisterInstance<IMapper>(new Mapper(AutoMapperConfig.Configure()));
             container.RegisterType<IAutoMapperService, AutoMappingService>(serviceLifetime());
+        }
+
+        public static void InjectMappingServicesWithAutofac(ContainerBuilder container)
+        {
+            container.RegisterInstance<IMapper>(new Mapper(AutoMapperConfig.Configure()));
+            container.RegisterType<AutoMappingService>().As<IAutoMapperService>();
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using MediatR;
 using WpfViewModelBasics.Core.Interfaces;
 
 namespace WpfViewModelBasics.Core.Entities
 {
-    public class Friend: IEntity
+    public class Friend: IEntity, IAsyncRequest<Friend>
     {
         public Friend()
         {
