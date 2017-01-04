@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\BusinessRequest\Friend\AddFriendRequest.cs" />
+    <Compile Include="Requests\BusinessRequest\Friend\DeleteFriendRequest.cs" />
+    <Compile Include="Requests\BusinessRequest\Friend\UpdateFriendRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

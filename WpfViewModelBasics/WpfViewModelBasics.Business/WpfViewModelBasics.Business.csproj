@@ -48,7 +48,9 @@
     <Compile Include="FriendEmail\FriendEmailCommandService.cs" />
     <Compile Include="FriendEmail\FriendEmailQueryService.cs" />
     <Compile Include="Friend\AddFriendCommandServiceHandler.cs" />
+    <Compile Include="Friend\DeleteFriendCommandServiceHandler.cs" />
     <Compile Include="Friend\FriendCommandService.cs" />
+    <Compile Include="Friend\UpdateFriendCommandServiceHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Friend\FriendQueryService.cs" />
   </ItemGroup>

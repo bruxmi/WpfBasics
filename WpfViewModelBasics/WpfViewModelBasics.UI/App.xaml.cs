@@ -26,16 +26,13 @@ namespace WpfViewModelBasics.UI
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            //var container = new UnityContainer();
-            //BusinessBootstrapper.InitializeBusiness(container, () => new ContainerControlledLifetimeManager());
-            //ViewModelBootstrapper.InitializeViewModels(container, () => new ContainerControlledLifetimeManager());
-            //_mainViewModel = container.Resolve<MainViewModel>();
 
             var containerbuilder = new ContainerBuilder();
-            BusinessBootstrapper.InitializeBusinessWithAutoac(containerbuilder);
-            ViewModelBootstrapper.InitializeViewModelsWithAutofac(containerbuilder);
+            containerbuilder.InitializeBusinessWithAutoac();
+            containerbuilder.InitializeViewModelsWithAutofac();
             var container = containerbuilder.Build();
             _mainViewModel = container.Resolve<MainViewModel>();
+
             MainWindow = new MainWindow(_mainViewModel);
             MainWindow.Show();
             await _mainViewModel.Load();

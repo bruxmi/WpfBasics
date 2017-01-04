@@ -23,22 +23,7 @@ namespace WpfViewModelBasics.Core.Registration.Container
 {
     public static class MiscContainer
     {
-        public static void InjectMisc(this IUnityContainer container, Func<LifetimeManager> serviceLifetime)
-        {
-            container.RegisterType(typeof(IRepositoryInitializer<>), typeof(RepositoryFriendStorageContextInitializer<>), serviceLifetime());
-            container.RegisterType(typeof(IQueryRepository<>), typeof(QueryRepository<>), serviceLifetime());
-            container.RegisterType(typeof(ICommandRepository<>), typeof(CommandRepository<>), serviceLifetime());
-
-            container.RegisterType<IFriendQueryService, FriendQueryService>(serviceLifetime());
-            container.RegisterType<IFriendCommandService, FriendCommandService>(serviceLifetime());
-
-            container.RegisterType<IFriendEmailQueryService, FriendEmailQueryService>(serviceLifetime());
-            container.RegisterType<IFriendEmailCommandService, FriendEmailCommandService>(serviceLifetime());
-
-            container.RegisterType<IAddressCommandService, AddressCommandService>(serviceLifetime());
-        }
-
-        public static void InjectMiscWithAutofac(ContainerBuilder builder)
+        public static void InjectMiscWithAutofac(this ContainerBuilder builder)
         {
             builder.RegisterType<FriendStorageContext>().InstancePerLifetimeScope();
 

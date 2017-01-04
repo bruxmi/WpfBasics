@@ -13,7 +13,6 @@
     public class UpdateFriendCommandServiceHandler : IAsyncRequestHandler<UpdateFriendRequest, bool>
     {
         private readonly ICommandRepository<Friend> _friendCommandRepository;
-        //private readonly IMediator _mediator;
 
         public UpdateFriendCommandServiceHandler(ICommandRepository<Friend> friendCommandRepository)
         {

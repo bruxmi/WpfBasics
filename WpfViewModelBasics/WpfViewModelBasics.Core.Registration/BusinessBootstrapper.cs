@@ -11,16 +11,10 @@ namespace WpfViewModelBasics.Core.Registration
 {
     public static class BusinessBootstrapper
     {
-        public static void InitializeBusiness(IUnityContainer container, Func<LifetimeManager> serviceLifetime)
+        public static void InitializeBusinessWithAutoac(this ContainerBuilder container)
         {
-            container.InjectMisc(serviceLifetime);
-            container.InjectMediator(serviceLifetime);
-        }
-
-        public static void InitializeBusinessWithAutoac(ContainerBuilder container)
-        {
-            MiscContainer.InjectMiscWithAutofac(container);
-            MediatorContainer.InjectMediatorWithAutofac(container);
+            container.InjectMiscWithAutofac();
+            container.InjectMediatorWithAutofac();
         }
     }
 }

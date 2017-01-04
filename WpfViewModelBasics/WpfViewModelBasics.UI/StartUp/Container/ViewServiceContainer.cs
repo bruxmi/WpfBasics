@@ -12,12 +12,7 @@ namespace WpfViewModelBasics.UI.StartUp.Container
 {
     public static class ViewServiceContainer
     {
-        public static void InjectViewServices(this IUnityContainer container, Func<LifetimeManager> serviceLifetime)
-        {
-            container.RegisterType<IMessageDialogService, MessageDialogService>(serviceLifetime());
-        }
-
-        public static void InjectViewServicesWithAutofac(ContainerBuilder container)
+        public static void InjectViewServicesWithAutofac(this ContainerBuilder container)
         {
             container.RegisterType<MessageDialogService>().As<IMessageDialogService>().InstancePerDependency();
         }

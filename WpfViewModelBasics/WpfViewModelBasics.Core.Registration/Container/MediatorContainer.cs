@@ -17,19 +17,12 @@ namespace WpfViewModelBasics.Core.Registration.Container
 {
     public static class MediatorContainer
     {
-        public static void InjectMediator(this IUnityContainer container, Func<LifetimeManager> serviceLifetime)
-        {
-            container.RegisterType<IMediator, Mediator>(serviceLifetime());
-
-        }
-
-        public static void InjectMediatorWithAutofac(ContainerBuilder builder)
+        public static void InjectMediatorWithAutofac(this ContainerBuilder builder)
         {
 
             builder.RegisterSource(new ContravariantRegistrationSource());
-
-            builder.RegisterAssemblyTypes(typeof(IMediator).Assembly)
-                .AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(typeof(IMediator).Assembly).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(typeof(AddFriendCommandServiceHandler).Assembly).AsImplementedInterfaces();
 
             builder.Register<SingleInstanceFactory>(ctx =>
             {
@@ -41,23 +34,6 @@ namespace WpfViewModelBasics.Core.Registration.Container
                 var c = ctx.Resolve<IComponentContext>();
                 return t => (IEnumerable<object>)c.Resolve(typeof(IEnumerable<>).MakeGenericType(t));
             });
-
-            ////register all notification handlers
-            //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-            //    .As(type => type.GetInterfaces()
-            //        .Where(interfacetype => interfacetype.IsClosedTypeOf(typeof(IAsyncNotificationHandler<>))));
-
-
-            ////register all handlers
-            //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-            //   .As(type => type.GetInterfaces()
-            //       .Where(interfaceType => interfaceType.IsClosedTypeOf(typeof(IAsyncRequestHandler<,>)))
-            //       .Select(interfaceType => new KeyedService("asyncRequestHandler", interfaceType)));
-
-
-            ////register pipeline decorators
-            //builder.RegisterGenericDecorator(typeof(AddFriendCommandServiceHandler), typeof(IAsyncRequestHandler<,>), "asyncRequestHandler");
-
         }
     }
 }

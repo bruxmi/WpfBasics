@@ -71,9 +71,9 @@ namespace WpfViewModelBasics.UI.ViewModel
 
         private async Task OnDeleteFriendExecute(object obj)
         {
-            //var friendEntity = this._mapper.MapTo<FriendVm, Friend>(Friend.Model);
-            //await this._mediator.SendAsync(new DeleteFriendRequest { Friend = friendEntity });
-            //_eventAggregator.GetEvent<DeleteFriendEvent>().Publish(friendEntity.Id);
+            var friendEntity = this._mapper.MapTo<FriendVm, Friend>(Friend.Model);
+            await this._mediator.SendAsync(new DeleteFriendRequest { Friend = friendEntity });
+            _eventAggregator.GetEvent<DeleteFriendEvent>().Publish(friendEntity.Id);
         }
 
         private async Task OnSaveExecute(object obj)
@@ -95,6 +95,7 @@ namespace WpfViewModelBasics.UI.ViewModel
         private async Task AddOrUpdateEmails()
         {
             var addedEmails = this._mapper.MapTo<IEnumerable<FriendEmailVm>, IEnumerable<FriendEmail>>(Friend.Emails.AddedItems.Select(wrapper => wrapper.Model)).ToList();
+            addedEmails.ForEach(a => a.FriendId = Friend.Id);
             addedEmails = await this._friendEmailCommandService.AddEmailListAsync(addedEmails);
             for (var i = 0; i < Friend.Emails.AddedItems.Count; i++)
             {
@@ -127,7 +128,7 @@ namespace WpfViewModelBasics.UI.ViewModel
             }
             else
             {
-                //await this._mediator.SendAsync(new UpdateFriendRequest { Friend = friendEntity });
+                await this._mediator.SendAsync(new UpdateFriendRequest { Friend = friendEntity });
             }
             Friend.Id = friendEntity.Id;
             Friend.Address.Id = friendEntity.Address.Id;

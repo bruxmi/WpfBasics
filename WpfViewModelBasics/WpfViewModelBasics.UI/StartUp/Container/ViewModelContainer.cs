@@ -10,15 +10,7 @@ namespace WpfViewModelBasics.UI.StartUp.Container
 {
     public static class ViewModelContainer
     {
-        public static void InjectViewModels(this IUnityContainer container, Func<LifetimeManager> serviceLifetime)
-        {
-            container.RegisterInstance<IEventAggregator>(new EventAggregator());
-            container.RegisterType<IFriendEditViewModel, FriendEditViewModel>();
-            container.RegisterType<IFriendNavigationViewModel, FriendNavigationViewModel>();
-            container.RegisterType<MainViewModel>();
-        }
-
-        public static void InjectViewModelsWithAutofac(ContainerBuilder container)
+        public static void InjectViewModelsWithAutofac(this ContainerBuilder container)
         {
             container.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
             container.RegisterType<FriendEditViewModel>().As<IFriendEditViewModel>();

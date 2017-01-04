@@ -1,8 +1,10 @@
 ﻿namespace WpfViewModelBasics.Core.Requests.Requests.BusinessRequest.Friend
 {
     using MediatR;
-    public class AddFriendRequest: IAsyncRequest<Entities.Friend>
+    using Core.Entities;
+
+    public class AddFriendRequest: IAsyncRequest<Friend>
     {
-        public Entities.Friend Friend { get; set; }
+        public Friend Friend { get; set; }
     }
 }
