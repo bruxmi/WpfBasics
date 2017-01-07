@@ -53,17 +53,13 @@
   <ItemGroup>
     <Compile Include="FriendStorageContext.cs" />
     <Compile Include="FriendStorageInitializer.cs" />
-    <Compile Include="Migrations\201612301008220_InitialCreate.cs" />
-    <Compile Include="Migrations\201612301008220_InitialCreate.Designer.cs">
-      <DependentUpon>201612301008220_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201701071159062_InitialCreate.cs" />
+    <Compile Include="Migrations\201701071159062_InitialCreate.Designer.cs">
+      <DependentUpon>201701071159062_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612301026407_RemovedFriendGroupId.cs" />
-    <Compile Include="Migrations\201612301026407_RemovedFriendGroupId.Designer.cs">
-      <DependentUpon>201612301026407_RemovedFriendGroupId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701040954490_FixedRelationOfFriendAndFriendEmail.cs" />
-    <Compile Include="Migrations\201701040954490_FixedRelationOfFriendAndFriendEmail.Designer.cs">
-      <DependentUpon>201701040954490_FixedRelationOfFriendAndFriendEmail.cs</DependentUpon>
+    <Compile Include="Migrations\201701071220064_FixedRelationFriendAndFriendEmails.cs" />
+    <Compile Include="Migrations\201701071220064_FixedRelationFriendAndFriendEmails.Designer.cs">
+      <DependentUpon>201701071220064_FixedRelationFriendAndFriendEmails.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,14 +75,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612301008220_InitialCreate.resx">
-      <DependentUpon>201612301008220_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701071159062_InitialCreate.resx">
+      <DependentUpon>201701071159062_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612301026407_RemovedFriendGroupId.resx">
-      <DependentUpon>201612301026407_RemovedFriendGroupId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701040954490_FixedRelationOfFriendAndFriendEmail.resx">
-      <DependentUpon>201701040954490_FixedRelationOfFriendAndFriendEmail.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701071220064_FixedRelationFriendAndFriendEmails.resx">
+      <DependentUpon>201701071220064_FixedRelationFriendAndFriendEmails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

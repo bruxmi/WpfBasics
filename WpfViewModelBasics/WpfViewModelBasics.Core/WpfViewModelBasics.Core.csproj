@@ -42,10 +42,6 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MediatR.2.1.0\lib\net45\MediatR.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -82,8 +78,6 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Initializer\IRepositoryInitializer.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
-    <Compile Include="Interfaces\Services\Command\IFriendEmailCommandService.cs" />
-    <Compile Include="Interfaces\Services\Command\IFriendEmailQueryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Command\IAddCommandRepository.cs" />
     <Compile Include="Repository\Command\ICommandRepository.cs" />
@@ -91,10 +85,7 @@
     <Compile Include="Repository\Command\IUpdateCommandRepository.cs" />
     <Compile Include="Repository\Query\IQueryRepository.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\Services\Mapping\" />
-    <Folder Include="Interfaces\Services\Query\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

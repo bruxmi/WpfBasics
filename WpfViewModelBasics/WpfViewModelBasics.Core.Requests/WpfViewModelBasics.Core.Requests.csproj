@@ -48,6 +48,11 @@
     <Compile Include="Requests\BusinessRequest\Address\DeleteAddressRequest.cs" />
     <Compile Include="Requests\BusinessRequest\Address\AddAddressRequest.cs" />
     <Compile Include="Requests\BusinessRequest\Address\UpdateAddressRequest.cs" />
+    <Compile Include="Requests\BusinessRequest\FriendEmail\Command\AddFriendEmailListRequest.cs" />
+    <Compile Include="Requests\BusinessRequest\FriendEmail\Command\AddFriendEmailRequest.cs" />
+    <Compile Include="Requests\BusinessRequest\FriendEmail\Command\DeleteFriendEmailRequest.cs" />
+    <Compile Include="Requests\BusinessRequest\FriendEmail\Command\UpdateFriendEmailListRequest.cs" />
+    <Compile Include="Requests\BusinessRequest\FriendEmail\Command\UpdateFriendEmailRequest.cs" />
     <Compile Include="Requests\BusinessRequest\Friend\Command\AddFriendRequest.cs" />
     <Compile Include="Requests\BusinessRequest\Friend\Command\DeleteFriendRequest.cs" />
     <Compile Include="Requests\BusinessRequest\Friend\Query\GetAllFriendsRequest.cs" />
@@ -63,9 +68,7 @@
       <Name>WpfViewModelBasics.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Requests\BusinessRequest\FriendEmail\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

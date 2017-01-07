@@ -1,10 +1,8 @@
 ﻿namespace WpfViewModelBasics.Core.Registration.Container
 {
     using Autofac;
-    using Business.FriendEmail;
     using Context;
     using Initializer;
-    using Interfaces.Services.Command;
     using Repository.Command;
     using Repository.Query;
     using WpfViewModelBasic.Data;
@@ -20,9 +18,6 @@
             builder.RegisterGeneric(typeof(QueryRepository<>)).As(typeof(IQueryRepository<>));
             builder.RegisterGeneric(typeof(CommandRepository<>)).As(typeof(ICommandRepository<>));
             builder.RegisterGeneric(typeof(RepositoryFriendStorageContextInitializer<>)).As(typeof(IRepositoryInitializer<>));
-
-            builder.RegisterType<FriendEmailQueryService>().As<IFriendEmailQueryService>();
-            builder.RegisterType<FriendEmailCommandService>().As<IFriendEmailCommandService>();
         }
     }
 }

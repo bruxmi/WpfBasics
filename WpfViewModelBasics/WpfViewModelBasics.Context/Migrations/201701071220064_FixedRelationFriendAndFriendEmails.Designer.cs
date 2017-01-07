@@ -7,13 +7,13 @@ namespace WpfViewModelBasics.Context.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class FixedRelationOfFriendAndFriendEmail : IMigrationMetadata
+    public sealed partial class FixedRelationFriendAndFriendEmails : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FixedRelationOfFriendAndFriendEmail));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FixedRelationFriendAndFriendEmails));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701040954490_FixedRelationOfFriendAndFriendEmail"; }
+            get { return "201701071220064_FixedRelationFriendAndFriendEmails"; }
         }
         
         string IMigrationMetadata.Source

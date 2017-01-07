@@ -47,8 +47,11 @@
     <Compile Include="Address\DeleteAddressCommandServiceHandler.cs" />
     <Compile Include="Address\UpdateAddressCommandServiceHandler.cs" />
     <Compile Include="Address\AddressCommandServiceHandler.cs" />
-    <Compile Include="FriendEmail\FriendEmailCommandService.cs" />
-    <Compile Include="FriendEmail\FriendEmailQueryService.cs" />
+    <Compile Include="FriendEmail\Command\DeleteFriendEmailCommandServiceHandler.cs" />
+    <Compile Include="FriendEmail\Command\AddFriendEmailCommandServiceHandler.cs" />
+    <Compile Include="FriendEmail\Command\AddFriendEmailListCommandServiceHandler.cs" />
+    <Compile Include="FriendEmail\Command\UpdateFriendEmailCommandServiceHandler.cs" />
+    <Compile Include="FriendEmail\Command\UpdateFriendEmailListCommandServiceHandler.cs" />
     <Compile Include="Friend\Command\AddFriendCommandServiceHandler.cs" />
     <Compile Include="Friend\Command\DeleteFriendCommandServiceHandler.cs" />
     <Compile Include="Friend\Command\UpdateFriendCommandServiceHandler.cs" />
@@ -69,7 +72,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="FriendEmail\Query\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

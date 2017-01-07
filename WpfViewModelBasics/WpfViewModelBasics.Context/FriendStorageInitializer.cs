@@ -68,7 +68,7 @@ namespace WpfViewModelBasics.Context
                     Address = new Address {City = "Tiengen", Street = "Hardstreet", StreetNumber = "5"},
                     Birthday = new DateTime(1981, 01, 10),
                     IsDeveloper = true,
-                    Emails = new List<FriendEmail> {new FriendEmail {Email = "andreas@strenggeheim.de"}},
+                    Emails = new List<FriendEmail> {new FriendEmail {Email = "andreas@strenggeheim.de"}, new FriendEmail {Email = "chris@strenggeheim.de"}},
                 },
                 new Friend
                 {

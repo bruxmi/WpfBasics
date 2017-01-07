@@ -23,7 +23,6 @@ namespace WpfViewModelBasics.Context.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        FriendGroupId = c.Int(nullable: false),
                         FirstName = c.String(),
                         LastName = c.String(),
                         Birthday = c.DateTime(),
@@ -40,10 +39,10 @@ namespace WpfViewModelBasics.Context.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Email = c.String(),
-                        FriendId = c.Int(),
+                        FriendId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Friends", t => t.FriendId)
+                .ForeignKey("dbo.Friends", t => t.FriendId, cascadeDelete: true)
                 .Index(t => t.FriendId);
             
         }

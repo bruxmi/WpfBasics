@@ -56,9 +56,10 @@
         <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal">
             <Label Content="Emails"  HorizontalAlignment="Left" Margin="5,0,0,0" Style="{StaticResource LabelStyle}"/>
             <Button Content="Add email"  Style="{DynamicResource SquareButtonStyle}" Margin="5,0,0,0" Command="{Binding AddFriendEmailCommand}"/>
+            <Button Content="Remove email"  Style="{DynamicResource SquareButtonStyle}" Margin="5,0,0,0" Command="{Binding RemoveFriendEmailCommand}"/>
         </StackPanel>
         
-        <DataGrid ItemsSource="{Binding Friend.Emails}"  Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" Margin="5">
+        <DataGrid ItemsSource="{Binding Friend.Emails}" SelectedItem="{Binding SelectedFriendEmail, Mode=TwoWay}"  Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" Margin="5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" IsReadOnly="True" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Email address" Binding="{Binding Email, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>

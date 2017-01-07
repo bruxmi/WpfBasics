@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using MediatR;
 using WpfViewModelBasics.Core.Interfaces;
 
 namespace WpfViewModelBasics.Core.Entities
 {
-    public class Friend: IEntity, IAsyncRequest<Friend>
+    public class Friend: IEntity
     {
         public Friend()
         {
@@ -23,9 +22,9 @@ namespace WpfViewModelBasics.Core.Entities
 
         public bool IsDeveloper { get; set; }
 
+        [ForeignKey("AddressId")]
         public virtual Address Address { get; set; }
 
-        [ForeignKey("Address")]
         public int? AddressId { get; set; }
 
         public virtual ICollection<FriendEmail> Emails { get; set; }
