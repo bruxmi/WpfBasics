@@ -82,8 +82,6 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Initializer\IRepositoryInitializer.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
-    <Compile Include="Interfaces\Services\Command\IAddressCommandService.cs" />
-    <Compile Include="Interfaces\Services\Command\IFriendCommandService.cs" />
     <Compile Include="Interfaces\Services\Command\IFriendEmailCommandService.cs" />
     <Compile Include="Interfaces\Services\Command\IFriendEmailQueryService.cs" />
     <Compile Include="Interfaces\Services\Query\IFriendQueryService.cs" />
