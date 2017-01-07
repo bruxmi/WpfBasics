@@ -48,9 +48,11 @@
     <Compile Include="Requests\BusinessRequest\Address\DeleteAddressRequest.cs" />
     <Compile Include="Requests\BusinessRequest\Address\AddAddressRequest.cs" />
     <Compile Include="Requests\BusinessRequest\Address\UpdateAddressRequest.cs" />
-    <Compile Include="Requests\BusinessRequest\Friend\AddFriendRequest.cs" />
-    <Compile Include="Requests\BusinessRequest\Friend\DeleteFriendRequest.cs" />
-    <Compile Include="Requests\BusinessRequest\Friend\UpdateFriendRequest.cs" />
+    <Compile Include="Requests\BusinessRequest\Friend\Command\AddFriendRequest.cs" />
+    <Compile Include="Requests\BusinessRequest\Friend\Command\DeleteFriendRequest.cs" />
+    <Compile Include="Requests\BusinessRequest\Friend\Query\GetAllFriendsRequest.cs" />
+    <Compile Include="Requests\BusinessRequest\Friend\Query\GetFriendRequest.cs" />
+    <Compile Include="Requests\BusinessRequest\Friend\Command\UpdateFriendRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

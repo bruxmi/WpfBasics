@@ -1,39 +1,53 @@
-﻿
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using WpfViewModelBasics.UI.Command;
-using WpfViewModelBasics.UI.Events;
-
-namespace WpfViewModelBasics.UI.ViewModel
+﻿namespace WpfViewModelBasics.UI.ViewModel
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using Prism.Events;
-    using Core.Entities;
-    using Core.Interfaces.Services.Query;
-    using Interfaces;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Base;
+    using Core.Entities;
+    using Core.Requests.Requests.BusinessRequest.Friend.Query;
+    using Events;
+    using Interfaces;
+    using MediatR;
+    using Prism.Events;
     using ViewModelMapping.MappingServices;
     using ViewModelMapping.ViewModel;
-    using System;
 
-    public class FriendNavigationViewModel: ViewModelBase, IFriendNavigationViewModel
+    public class FriendNavigationViewModel : ViewModelBase, IFriendNavigationViewModel
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IAutoMapperService _mappingService;
-        private readonly IFriendQueryService _friendQueryService;
+        private readonly IMediator _mediator;
 
-        public FriendNavigationViewModel(IEventAggregator eventAggregator, 
-            IAutoMapperService mappingService, 
-            IFriendQueryService friendQueryService)
+        public FriendNavigationViewModel(IEventAggregator eventAggregator,
+            IAutoMapperService mappingService,
+            IMediator mediator)
         {
             _eventAggregator = eventAggregator;
             _mappingService = mappingService;
-            _friendQueryService = friendQueryService;
+            _mediator = mediator;
             NavigationItems = new ObservableCollection<FriendNavigationItemViewModel>();
             _eventAggregator.GetEvent<SaveFriendEditViewEvent>().Subscribe(OnFriendSaved);
             _eventAggregator.GetEvent<DeleteFriendEvent>().Subscribe(a => RemoveNavigationItem(a));
+        }
+
+        public ObservableCollection<FriendNavigationItemViewModel> NavigationItems
+        {
+            get { return GetValue<ObservableCollection<FriendNavigationItemViewModel>>(); }
+            private set { SetValue(value); }
+        }
+
+
+        public async Task Load()
+        {
+            var friendEntities = await _mediator.SendAsync(new GetAllFriendsRequest());
+            var friends = _mappingService.MapTo<IEnumerable<Friend>, IEnumerable<FriendVm>>(friendEntities);
+            NavigationItems.Clear();
+            foreach (var friend in friends)
+            {
+                NavigationItems.Add(new FriendNavigationItemViewModel(friend.Id, friend.FirstName + " " + friend.LastName, _eventAggregator));
+            }
         }
 
         private void OnFriendSaved(FriendVm savedFriend)
@@ -51,29 +65,12 @@ namespace WpfViewModelBasics.UI.ViewModel
 
         private void RemoveNavigationItem(int? friendId)
         {
-            if (friendId != null)
+            if (friendId == null)
             {
-                var navigationItemToDelete = NavigationItems.SingleOrDefault(s => s.FriendId == friendId.Value);
-                NavigationItems.Remove(navigationItemToDelete);
+                return;
             }
-        }
-
-        public ObservableCollection<FriendNavigationItemViewModel> NavigationItems
-        {
-            get { return GetValue<ObservableCollection<FriendNavigationItemViewModel>>(); }
-            private set { SetValue(value);}
-        }
-
-
-        public async Task Load()
-        {
-            var friendEntities = await this._friendQueryService.GetAllFriendsAsync();
-            var friends = this._mappingService.MapTo<IEnumerable<Friend>, IEnumerable<FriendVm>>(friendEntities);
-            NavigationItems.Clear();
-            foreach (var friend in friends)
-            {
-                NavigationItems.Add(new FriendNavigationItemViewModel(friend.Id, friend.FirstName + " " + friend.LastName,_eventAggregator));
-            }
+            var navigationItemToDelete = NavigationItems.SingleOrDefault(s => s.FriendId == friendId.Value);
+            NavigationItems.Remove(navigationItemToDelete);
         }
     }
 }

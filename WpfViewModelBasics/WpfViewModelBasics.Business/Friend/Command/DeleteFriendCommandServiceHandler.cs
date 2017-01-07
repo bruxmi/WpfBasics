@@ -1,22 +1,16 @@
-﻿
+﻿using System.Threading.Tasks;
+using MediatR;
 using WpfViewModelBasics.Core.Repository.Command;
 using WpfViewModelBasics.Core.Requests.Requests.BusinessRequest.Friend;
+using WpfViewModelBasics.Core.Requests.Requests.BusinessRequest.Friend.Command;
 
-namespace WpfViewModelBasics.Business.Friend
+namespace WpfViewModelBasics.Business.Friend.Command
 {
-    using MediatR;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net.NetworkInformation;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Core.Entities;
     public class DeleteFriendCommandServiceHandler : IAsyncRequestHandler<DeleteFriendRequest, bool>
     {
-        private readonly ICommandRepository<Friend> _friendCommandRepository;
+        private readonly ICommandRepository<Core.Entities.Friend> _friendCommandRepository;
 
-        public DeleteFriendCommandServiceHandler(ICommandRepository<Friend> friendCommandRepository)
+        public DeleteFriendCommandServiceHandler(ICommandRepository<Core.Entities.Friend> friendCommandRepository)
         {
             _friendCommandRepository = friendCommandRepository;
         }

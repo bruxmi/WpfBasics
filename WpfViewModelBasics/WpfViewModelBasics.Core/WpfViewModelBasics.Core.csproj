@@ -84,7 +84,6 @@
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\Services\Command\IFriendEmailCommandService.cs" />
     <Compile Include="Interfaces\Services\Command\IFriendEmailQueryService.cs" />
-    <Compile Include="Interfaces\Services\Query\IFriendQueryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Command\IAddCommandRepository.cs" />
     <Compile Include="Repository\Command\ICommandRepository.cs" />
@@ -94,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\Services\Mapping\" />
+    <Folder Include="Interfaces\Services\Query\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

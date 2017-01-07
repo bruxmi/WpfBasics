@@ -1,50 +1,38 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Prism.Events;
-using WpfViewModelBasics.Core.Entities;
-using WpfViewModelBasics.UI.Command;
-using WpfViewModelBasics.UI.Enums;
-using WpfViewModelBasics.UI.Events;
-using WpfViewModelBasics.UI.Interfaces;
-using WpfViewModelBasics.UI.ViewModel.Base;
-using WpfViewModelBasics.ViewModelMapping.ViewModel;
-
-
-namespace WpfViewModelBasics.UI.ViewModel
+﻿namespace WpfViewModelBasics.UI.ViewModel
 {
-    public class MainViewModel: ViewModelBase
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
+    using Base;
+    using Command;
+    using Enums;
+    using Events;
+    using Interfaces;
+    using Prism.Events;
+
+    public class MainViewModel : ViewModelBase
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly Func<IFriendEditViewModel> _friendEditViewModelCreator;
         private readonly IMessageDialogService _messageDialogService;
 
         public MainViewModel(IEventAggregator eventAggregator,
-            IFriendNavigationViewModel navigationViewModel, 
-            Func<IFriendEditViewModel> friendEditViewModelCreator, 
-            IMessageDialogService messageDialogService) 
+            IFriendNavigationViewModel navigationViewModel,
+            Func<IFriendEditViewModel> friendEditViewModelCreator,
+            IMessageDialogService messageDialogService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<OpenFriendEditViewEvent>().Subscribe(async a => await OnOpenFriendTab(a));
+            _eventAggregator.GetEvent<DeleteFriendEvent>().Subscribe(a => DeleteFriendEditViewExecute(a));
 
             _friendEditViewModelCreator = friendEditViewModelCreator;
             _messageDialogService = messageDialogService;
-            this.NavigationViewModel = navigationViewModel;
-            this.FriendEditViewModels = new ObservableCollection<IFriendEditViewModel>();
+            NavigationViewModel = navigationViewModel;
+            FriendEditViewModels = new ObservableCollection<IFriendEditViewModel>();
             CloseFriendTabCommand = new AsyncDelegateCommand(async friend => await CloseFriendEditViewExecute(friend as IFriendEditViewModel));
             AddFriendCommand = new AsyncDelegateCommand(OnAddFriendExecute);
-            _eventAggregator.GetEvent<DeleteFriendEvent>().Subscribe(a => DeleteFriendEditViewExecute(a));
-        }
-
-        private void DeleteFriendEditViewExecute(int? friendId)
-        {
-            if (friendId != null)
-            {
-                var friendEditViewModel = FriendEditViewModels.SingleOrDefault(s => s.Friend.Id == friendId.Value);
-                FriendEditViewModels.Remove(friendEditViewModel);
-            }
         }
 
         public ObservableCollection<IFriendEditViewModel> FriendEditViewModels { get; }
@@ -82,14 +70,23 @@ namespace WpfViewModelBasics.UI.ViewModel
             get { return GetValue<bool>(); }
             set { SetValue(value); }
         }
-        
+
+        private void DeleteFriendEditViewExecute(int? friendId)
+        {
+            if (friendId != null)
+            {
+                var friendEditViewModel = FriendEditViewModels.SingleOrDefault(s => s.Friend.Id == friendId.Value);
+                FriendEditViewModels.Remove(friendEditViewModel);
+            }
+        }
+
         private async Task CloseFriendEditViewExecute(IFriendEditViewModel friendEditVmToClose)
         {
             if (friendEditVmToClose != null)
             {
                 if (friendEditVmToClose.Friend.IsChanged)
                 {
-                    var result = await this._messageDialogService.ShowYesNoDialog("Close Tab", "Do you want to close the tab?");
+                    var result = await _messageDialogService.ShowYesNoDialog("Close Tab", "Do you want to close the tab?");
                     if (result == MessageDialogResult.No)
                     {
                         return;
@@ -104,7 +101,7 @@ namespace WpfViewModelBasics.UI.ViewModel
             var friendEditVm = FriendEditViewModels.SingleOrDefault(vm => vm.Friend.Id == friendId);
             if (friendEditVm == null)
             {
-                friendEditVm = this._friendEditViewModelCreator();
+                friendEditVm = _friendEditViewModelCreator();
                 FriendEditViewModels.Add(friendEditVm);
                 await friendEditVm.Load(friendId);
             }
@@ -113,10 +110,10 @@ namespace WpfViewModelBasics.UI.ViewModel
 
         private async Task OnAddFriendExecute(object obj)
         {
-            var friendEditVm = this._friendEditViewModelCreator();
+            var friendEditVm = _friendEditViewModelCreator();
             FriendEditViewModels.Add(friendEditVm);
             await friendEditVm.Load();
-            SelectedFriendEditViewModel = friendEditVm;        
+            SelectedFriendEditViewModel = friendEditVm;
         }
 
         public async Task Load()

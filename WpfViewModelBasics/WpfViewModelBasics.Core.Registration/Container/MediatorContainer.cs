@@ -12,6 +12,7 @@ using WpfViewModelBasics.Core.Requests.Requests.BusinessRequest.Friend;
 using Autofac;
 using Autofac.Core;
 using Autofac.Features.Variance;
+using WpfViewModelBasics.Business.Friend.Command;
 
 namespace WpfViewModelBasics.Core.Registration.Container
 {

@@ -1,28 +1,22 @@
-﻿
+﻿using System.Threading.Tasks;
+using MediatR;
 using WpfViewModelBasics.Core.Repository.Command;
 using WpfViewModelBasics.Core.Requests.Requests.BusinessRequest.Friend;
+using WpfViewModelBasics.Core.Requests.Requests.BusinessRequest.Friend.Command;
 
-namespace WpfViewModelBasics.Business.Friend
+namespace WpfViewModelBasics.Business.Friend.Command
 {
-    using MediatR;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net.NetworkInformation;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Core.Entities;
-    public class AddFriendCommandServiceHandler: IAsyncRequestHandler<AddFriendRequest, Friend>
+    public class AddFriendCommandServiceHandler: IAsyncRequestHandler<AddFriendRequest, Core.Entities.Friend>
     {
-        private readonly ICommandRepository<Friend> _friendCommandRepository;
+        private readonly ICommandRepository<Core.Entities.Friend> _friendCommandRepository;
         //private readonly IMediator _mediator;
 
-        public AddFriendCommandServiceHandler(ICommandRepository<Friend> friendCommandRepository)
+        public AddFriendCommandServiceHandler(ICommandRepository<Core.Entities.Friend> friendCommandRepository)
         {
             _friendCommandRepository = friendCommandRepository;
         }
 
-        public async Task<Friend> Handle(AddFriendRequest friend)
+        public async Task<Core.Entities.Friend> Handle(AddFriendRequest friend)
         {
             return await this._friendCommandRepository.AddAsync(friend.Friend);
         }

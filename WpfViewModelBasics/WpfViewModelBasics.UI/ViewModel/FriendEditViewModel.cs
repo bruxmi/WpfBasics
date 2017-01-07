@@ -1,4 +1,6 @@
-﻿namespace WpfViewModelBasics.UI.ViewModel
+﻿using WpfViewModelBasics.Core.Requests.Requests.BusinessRequest.Friend.Command;
+
+namespace WpfViewModelBasics.UI.ViewModel
 {
     using System.Collections.Generic;
     using MediatR;
@@ -8,7 +10,6 @@
     using Prism.Events;
     using Core.Entities;
     using Core.Interfaces.Services.Command;
-    using Core.Interfaces.Services.Query;
     using Command;
     using Events;
     using Interfaces;
@@ -16,25 +17,22 @@
     using Wrapper;
     using ViewModelMapping.MappingServices;
     using ViewModelMapping.ViewModel;
-    using Core.Requests.Requests.BusinessRequest.Friend;
     using Core.Requests.Requests.BusinessRequest.Address;
+    using Core.Requests.Requests.BusinessRequest.Friend.Query;
 
     public class FriendEditViewModel : ViewModelBase, IFriendEditViewModel
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly IFriendQueryService _friendQueryService;
         private readonly IFriendEmailCommandService _friendEmailCommandService;
         private readonly IAutoMapperService _mapper;
         private readonly IMediator _mediator;
 
         public FriendEditViewModel(IEventAggregator eventAggregator,
-            IFriendQueryService friendQueryService,
             IFriendEmailCommandService friendEmailCommandService,
             IAutoMapperService mapper, 
             IMediator mediator)
         {
             _eventAggregator = eventAggregator;
-            _friendQueryService = friendQueryService;
             _friendEmailCommandService = friendEmailCommandService;
             _mapper = mapper;
             _mediator = mediator;
@@ -48,7 +46,7 @@
         {
 
             var friendEntity = friendId != null ?
-                await this._friendQueryService.GetFriendByIdAsync(friendId.Value) :
+                await this._mediator.SendAsync(new GetFriendRequest {FriendId = friendId.Value}) :
                 new Friend { Emails = new List<FriendEmail>(), Address = new Address() };
 
             var friend = _mapper.MapTo<Friend, FriendVm>(friendEntity);
