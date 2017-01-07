@@ -32,10 +32,8 @@ namespace WpfViewModelBasics.Core.Registration.Container
             builder.RegisterGeneric(typeof(RepositoryFriendStorageContextInitializer<>)).As(typeof(IRepositoryInitializer<>));
 
             builder.RegisterType<FriendQueryService>().As<IFriendQueryService>();
-            builder.RegisterType<FriendCommandService>().As<IFriendCommandService>();
             builder.RegisterType<FriendEmailQueryService>().As<IFriendEmailQueryService>();
             builder.RegisterType<FriendEmailCommandService>().As<IFriendEmailCommandService>();
-            builder.RegisterType<AddressCommandService>().As<IAddressCommandService>();
         }
     }
 }

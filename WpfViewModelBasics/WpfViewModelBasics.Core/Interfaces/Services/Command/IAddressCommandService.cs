@@ -11,5 +11,6 @@ namespace WpfViewModelBasics.Core.Interfaces.Services.Command
     {
         Task UpdateAddressAsync(Address address);
         Task<Address> AddAddressAsync(Address addressEntity);
+        Task DeleteAddressAsync(Address addressEntity);
     }
 }

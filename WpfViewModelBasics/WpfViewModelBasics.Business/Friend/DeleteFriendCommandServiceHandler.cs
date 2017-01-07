@@ -15,7 +15,6 @@ namespace WpfViewModelBasics.Business.Friend
     public class DeleteFriendCommandServiceHandler : IAsyncRequestHandler<DeleteFriendRequest, bool>
     {
         private readonly ICommandRepository<Friend> _friendCommandRepository;
-        //private readonly IMediator _mediator;
 
         public DeleteFriendCommandServiceHandler(ICommandRepository<Friend> friendCommandRepository)
         {

@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using MediatR;
-
-namespace WpfViewModelBasics.UI.ViewModel
+﻿namespace WpfViewModelBasics.UI.ViewModel
 {
+    using System.Collections.Generic;
+    using MediatR;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Input;
@@ -18,27 +17,25 @@ namespace WpfViewModelBasics.UI.ViewModel
     using ViewModelMapping.MappingServices;
     using ViewModelMapping.ViewModel;
     using Core.Requests.Requests.BusinessRequest.Friend;
+    using Core.Requests.Requests.BusinessRequest.Address;
 
     public class FriendEditViewModel : ViewModelBase, IFriendEditViewModel
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IFriendQueryService _friendQueryService;
         private readonly IFriendEmailCommandService _friendEmailCommandService;
-        private readonly IAddressCommandService _addressCommandService;
         private readonly IAutoMapperService _mapper;
         private readonly IMediator _mediator;
 
         public FriendEditViewModel(IEventAggregator eventAggregator,
             IFriendQueryService friendQueryService,
             IFriendEmailCommandService friendEmailCommandService,
-            IAddressCommandService addressCommandService,
             IAutoMapperService mapper, 
             IMediator mediator)
         {
             _eventAggregator = eventAggregator;
             _friendQueryService = friendQueryService;
             _friendEmailCommandService = friendEmailCommandService;
-            _addressCommandService = addressCommandService;
             _mapper = mapper;
             _mediator = mediator;
             DeleteFriendCommand = new AsyncDelegateCommand(async a => await OnDeleteFriendExecute(a));
@@ -71,7 +68,10 @@ namespace WpfViewModelBasics.UI.ViewModel
 
         private async Task OnDeleteFriendExecute(object obj)
         {
+            var addressEntity = this._mapper.MapTo<AddressVm, Address>(Friend.Address.Model);
+            await this._mediator.SendAsync(new DeleteAddressRequest { Address = addressEntity });
             var friendEntity = this._mapper.MapTo<FriendVm, Friend>(Friend.Model);
+            friendEntity.Emails = null;
             await this._mediator.SendAsync(new DeleteFriendRequest { Friend = friendEntity });
             _eventAggregator.GetEvent<DeleteFriendEvent>().Publish(friendEntity.Id);
         }
@@ -110,11 +110,11 @@ namespace WpfViewModelBasics.UI.ViewModel
             var addressEntity = this._mapper.MapTo<AddressVm, Address>(Friend.Address.Model);
             if (addressEntity.Id == 0)
             {
-                addressEntity = await this._addressCommandService.AddAddressAsync(addressEntity);
+                addressEntity = await this._mediator.SendAsync(new AddAddressRequest { Address = addressEntity });
             }
             else
             {
-                await this._addressCommandService.UpdateAddressAsync(addressEntity);
+                await this._mediator.SendAsync(new UpdateAddressRequest { Address = addressEntity });
             }
             Friend.Address.Id = addressEntity.Id;
         }
@@ -122,6 +122,7 @@ namespace WpfViewModelBasics.UI.ViewModel
         private async Task AddOrUpdateFriend()
         {
             var friendEntity = this._mapper.MapTo<FriendVm, Friend>(Friend.Model);
+            friendEntity.Emails = null;
             if (friendEntity.Id == 0)
             {
                 friendEntity = await this._mediator.SendAsync(new AddFriendRequest {Friend = friendEntity});

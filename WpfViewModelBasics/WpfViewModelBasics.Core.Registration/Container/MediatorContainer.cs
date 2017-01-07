@@ -21,8 +21,9 @@ namespace WpfViewModelBasics.Core.Registration.Container
         {
 
             builder.RegisterSource(new ContravariantRegistrationSource());
-            builder.RegisterAssemblyTypes(typeof(IMediator).Assembly).AsImplementedInterfaces();
-            builder.RegisterAssemblyTypes(typeof(AddFriendCommandServiceHandler).Assembly).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(typeof(AddFriendCommandServiceHandler).GetTypeInfo().Assembly).AsImplementedInterfaces();
+
 
             builder.Register<SingleInstanceFactory>(ctx =>
             {

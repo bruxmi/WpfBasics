@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-
-namespace WpfViewModelBasics.Business.Friend
+﻿namespace WpfViewModelBasics.Business.Friend
 {
+    using System.Threading.Tasks;
     using System.Collections.Generic;
     using Core.Interfaces.Services.Query;
     using Core.Repository.Query;
