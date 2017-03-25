@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfViewModelBasics.UI", "WpfViewModelBasics.UI\WpfViewModelBasics.UI.csproj", "{B9516ECA-B948-4FF2-B660-7F24FAAE3EF8}"
 EndProject
@@ -28,8 +28,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfViewModelBasics.Business", "WpfViewModelBasics.Business\WpfViewModelBasics.Business.csproj", "{87B49D73-215B-4C15-A813-009BFB7BFD11}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfViewModelBasics.ViewModelMapping", "WpfViewModelBasics.ViewModelMapping\WpfViewModelBasics.ViewModelMapping.csproj", "{37B2AC0D-A19F-4488-9D7D-32E0CE935D9F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfViewModelBasics.Core.Requests", "WpfViewModelBasics.Core.Requests\WpfViewModelBasics.Core.Requests.csproj", "{AFE65C43-7A69-467B-AA2A-BAD43049BD30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,10 +67,6 @@ Global
 		{37B2AC0D-A19F-4488-9D7D-32E0CE935D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37B2AC0D-A19F-4488-9D7D-32E0CE935D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37B2AC0D-A19F-4488-9D7D-32E0CE935D9F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AFE65C43-7A69-467B-AA2A-BAD43049BD30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFE65C43-7A69-467B-AA2A-BAD43049BD30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AFE65C43-7A69-467B-AA2A-BAD43049BD30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AFE65C43-7A69-467B-AA2A-BAD43049BD30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +80,5 @@ Global
 		{C5330CA2-4930-424F-BE62-A9AFC8F76D96} = {6F24AA98-57C4-4C94-842B-8140154E61F3}
 		{87B49D73-215B-4C15-A813-009BFB7BFD11} = {BDB9D103-84BE-4709-8AB4-CD5270D30275}
 		{37B2AC0D-A19F-4488-9D7D-32E0CE935D9F} = {4F350773-09CA-42A0-B0F7-3B5B48DF8816}
-		{AFE65C43-7A69-467B-AA2A-BAD43049BD30} = {6F24AA98-57C4-4C94-842B-8140154E61F3}
 	EndGlobalSection
 EndGlobal

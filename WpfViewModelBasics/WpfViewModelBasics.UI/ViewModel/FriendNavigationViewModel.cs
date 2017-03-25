@@ -6,27 +6,26 @@
     using System.Threading.Tasks;
     using Base;
     using Core.Entities;
-    using Core.Requests.Requests.BusinessRequest.Friend.Query;
     using Events;
     using Interfaces;
-    using MediatR;
     using Prism.Events;
     using ViewModelMapping.MappingServices;
     using ViewModelMapping.ViewModel;
+    using WpfViewModelBasics.Core.Interfaces.Services.Query;
 
     public class FriendNavigationViewModel : ViewModelBase, IFriendNavigationViewModel
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IAutoMapperService _mappingService;
-        private readonly IMediator _mediator;
+        private readonly IFriendQueryService _friendQueryService;
 
         public FriendNavigationViewModel(IEventAggregator eventAggregator,
             IAutoMapperService mappingService,
-            IMediator mediator)
+            IFriendQueryService friendQueryService)
         {
-            _eventAggregator = eventAggregator;
-            _mappingService = mappingService;
-            _mediator = mediator;
+            this._eventAggregator = eventAggregator;
+            this._mappingService = mappingService;
+            this._friendQueryService = friendQueryService;
             NavigationItems = new ObservableCollection<FriendNavigationItemViewModel>();
             _eventAggregator.GetEvent<SaveFriendEditViewEvent>().Subscribe(OnFriendSaved);
             _eventAggregator.GetEvent<DeleteFriendEvent>().Subscribe(a => RemoveNavigationItem(a));
@@ -41,7 +40,7 @@
 
         public async Task Load()
         {
-            var friendEntities = await _mediator.SendAsync(new GetAllFriendsRequest());
+            var friendEntities = await this._friendQueryService.GetAllFriend();
             var friends = _mappingService.MapTo<IEnumerable<Friend>, IEnumerable<FriendVm>>(friendEntities);
             NavigationItems.Clear();
             foreach (var friend in friends)

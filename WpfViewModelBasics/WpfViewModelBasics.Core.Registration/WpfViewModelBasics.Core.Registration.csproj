@@ -74,7 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessBootstrapper.cs" />
-    <Compile Include="Container\MediatorContainer.cs" />
+    <Compile Include="Container\BusinessContainer.cs" />
     <Compile Include="Container\MiscContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,10 +90,6 @@
     <ProjectReference Include="..\WpfViewModelBasics.Context\WpfViewModelBasics.Context.csproj">
       <Project>{f0e48fa7-7d8c-4101-8c9a-6a55e4080013}</Project>
       <Name>WpfViewModelBasics.Context</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WpfViewModelBasics.Core.Requests\WpfViewModelBasics.Core.Requests.csproj">
-      <Project>{afe65c43-7a69-467b-aa2a-bad43049bd30}</Project>
-      <Name>WpfViewModelBasics.Core.Requests</Name>
     </ProjectReference>
     <ProjectReference Include="..\WpfViewModelBasics.Core\WpfViewModelBasics.Core.csproj">
       <Project>{82042B1A-B588-450A-B02F-27CA0ABCD3AF}</Project>

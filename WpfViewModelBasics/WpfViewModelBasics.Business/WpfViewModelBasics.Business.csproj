@@ -44,26 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address\DeleteAddressCommandServiceHandler.cs" />
-    <Compile Include="Address\UpdateAddressCommandServiceHandler.cs" />
-    <Compile Include="Address\AddressCommandServiceHandler.cs" />
-    <Compile Include="FriendEmail\Command\DeleteFriendEmailCommandServiceHandler.cs" />
-    <Compile Include="FriendEmail\Command\AddFriendEmailCommandServiceHandler.cs" />
-    <Compile Include="FriendEmail\Command\AddFriendEmailListCommandServiceHandler.cs" />
-    <Compile Include="FriendEmail\Command\UpdateFriendEmailCommandServiceHandler.cs" />
-    <Compile Include="FriendEmail\Command\UpdateFriendEmailListCommandServiceHandler.cs" />
-    <Compile Include="Friend\Command\AddFriendCommandServiceHandler.cs" />
-    <Compile Include="Friend\Command\DeleteFriendCommandServiceHandler.cs" />
-    <Compile Include="Friend\Command\UpdateFriendCommandServiceHandler.cs" />
-    <Compile Include="Friend\Query\GetAllFriendsQueryServiceHandler.cs" />
-    <Compile Include="Friend\Query\GetFriendQueryServiceHandler.cs" />
+    <Compile Include="Address\AddressCommandService.cs" />
+    <Compile Include="FriendEmail\Command\FriendEmailCommandService.cs" />
+    <Compile Include="Friend\Command\FriendCommandService.cs" />
+    <Compile Include="Friend\Query\FriendQueryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WpfViewModelBasics.Core.Requests\WpfViewModelBasics.Core.Requests.csproj">
-      <Project>{afe65c43-7a69-467b-aa2a-bad43049bd30}</Project>
-      <Name>WpfViewModelBasics.Core.Requests</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WpfViewModelBasics.Core\WpfViewModelBasics.Core.csproj">
       <Project>{82042b1a-b588-450a-b02f-27ca0abcd3af}</Project>
       <Name>WpfViewModelBasics.Core</Name>
