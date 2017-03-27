@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using WpfViewModelBasics.UI.Interfaces;
-using WpfViewModelBasics.UI.ViewModel.Base;
-
-namespace WpfViewModelBasics.UI.ViewModel
+﻿namespace WpfViewModelBasics.UI.ViewModel
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using WpfViewModelBasics.UI.Interfaces;
+    using WpfViewModelBasics.UI.ViewModel.Base;
 
     public class Item : ViewModelBase
     {
@@ -43,25 +42,30 @@ namespace WpfViewModelBasics.UI.ViewModel
 
         public FriendTreeViewModel()
         {
+
+            this.Items = this.CreateTree();
         }
 
-        public ObservableCollection<Group> Items
+        public ObservableCollection<Item> Items
         {
-            get
+            get { return GetValue<ObservableCollection<Item>>(); }
+            set { SetValue(value); }
+        }
+
+        private ObservableCollection<Item> CreateTree()
+        {
+            var items = new ObservableCollection<Item>
             {
-                var result = new ObservableCollection<Group>();
+                new Group { Name = "Root" }
+            };
+            foreach (var item in items)
+            {
                 for (int i = 0; i < 5; i++)
                 {
-                    result[i].Name = $"Group {i + 1}";
-                    result[i].Items.Add(
-                    new Group()
-                    {
-                        Name = $"Entry {i + 1}"
-                    });
+                    item.Items.Add(new Entry() { Name = $"Entry {i + 1}" });
                 }
-
-                return result;
             }
+            return items;
         }
     }
 }

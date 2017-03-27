@@ -12,7 +12,7 @@
                 <HierarchicalDataTemplate DataType="{x:Type treeItems:Group}" ItemsSource="{Binding Items}">
                     <TextBlock Text="{Binding Path=Name}" />
                 </HierarchicalDataTemplate>
-                <DataTemplate DataType="{x:Type treeItems:Item}" >
+                <DataTemplate DataType="{x:Type treeItems:Entry}" >
                     <TextBlock Text="{Binding Path=Name}" />
                 </DataTemplate>
             </TreeView.Resources>
