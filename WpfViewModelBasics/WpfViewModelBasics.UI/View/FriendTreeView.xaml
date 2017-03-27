@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="WpfViewModelBasics.UI.View.FriendTreeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:treeItems="clr-namespace:WpfViewModelBasics.UI.ViewModel"
+             mc:Ignorable="d" 
+             Height="300" Width="300" Background="Aqua">
+    <Grid Height="300" Background="Aqua">
+        <TreeView Background="Aqua" Name="GroupView" Grid.Row="0" Grid.Column="0" ItemsSource="{Binding}">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type treeItems:Group}" ItemsSource="{Binding Items}">
+                    <TextBlock Text="{Binding Path=Name}" />
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type treeItems:Item}" >
+                    <TextBlock Text="{Binding Path=Name}" />
+                </DataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+    </Grid>
+</UserControl>

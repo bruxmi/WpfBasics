@@ -16,6 +16,7 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -27,21 +28,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--Navigation-->
-        <StackPanel Background="#E0E0E0" Grid.Column="0">
+        <StackPanel Background="#E0E0E0" Grid.Column="1">
             <Button Height="40" Width="90" Content="Add friend" HorizontalAlignment="Left" Margin="5,5,0,5" Command="{Binding AddFriendCommand}"/>
         </StackPanel>
-        <!--<StackPanel Grid.Column="2" Margin="0">
-        </StackPanel>-->
-        <GridSplitter Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Width="1" Background="DarkGray" HorizontalAlignment="Center"/>
-        <view:NavigationView DataContext="{Binding NavigationViewModel}" Grid.Column="0" Grid.Row="2" Background="#E0E0E0" Padding="5,0,5,0"/>
-        <GridSplitter Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Width="1" Background="DarkGray" HorizontalAlignment="Center"/>
+        <view:FriendTreeView DataContext="{Binding FriendTreeViewModel}" Grid.Column="0" Grid.Row="2" Height="500" Width="200" Background="#E0E0E0" Padding="5,0,5,0"/>
+
+        <GridSplitter Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Width="1" Background="DarkGray" HorizontalAlignment="Center"/>
+        <view:NavigationView DataContext="{Binding NavigationViewModel}" Grid.Column="1" Grid.Row="2" Background="#E0E0E0" Padding="5,0,5,0"/>
+        <GridSplitter Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Width="1" Background="DarkGray" HorizontalAlignment="Center"/>
         <!--Tabs-->
-        <controls:ProgressRing Grid.Column="2" Grid.Row="1" Margin="5" HorizontalAlignment="Center" IsActive="{Binding IsLoading}" Visibility="{Binding IsLoading, Converter={StaticResource HiddenIfTrue}}"/>
-        
+        <controls:ProgressRing Grid.Column="3" Grid.Row="1" Margin="5" HorizontalAlignment="Center" IsActive="{Binding IsLoading}" Visibility="{Binding IsLoading, Converter={StaticResource HiddenIfTrue}}"/>
+
         <TabControl ItemsSource="{Binding FriendEditViewModels}" 
                     SelectedItem="{Binding SelectedFriendEditViewModel, Mode=TwoWay}" 
                     Visibility="{Binding CanShowFriendTab, Converter={StaticResource HiddenIfTrue}}"
-                    Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" >
+                    Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" >
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

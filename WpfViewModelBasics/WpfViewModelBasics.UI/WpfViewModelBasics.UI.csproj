@@ -119,10 +119,15 @@
     <Compile Include="ViewModel\FriendEditViewModel.cs" />
     <Compile Include="ViewModel\FriendNavigationItemViewModel.cs" />
     <Compile Include="ViewModel\FriendNavigationViewModel.cs" />
+    <Compile Include="ViewModel\FriendTreeViewModel.cs" />
+    <Compile Include="Interfaces\IFriendTreeViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Observable.cs" />
     <Compile Include="View\FriendEditView.xaml.cs">
       <DependentUpon>FriendEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FriendTreeView.xaml.cs">
+      <DependentUpon>FriendTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NavigationView.xaml.cs">
       <DependentUpon>NavigationView.xaml</DependentUpon>
@@ -142,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\FriendEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FriendTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
