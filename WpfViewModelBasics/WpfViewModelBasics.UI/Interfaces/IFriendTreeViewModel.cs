@@ -6,6 +6,6 @@ namespace WpfViewModelBasics.UI.Interfaces
 {
     public interface IFriendTreeViewModel
     {
-        ObservableCollection<Item> Items { get; }
+        ObservableCollection<Item> Items { get; set; }
     }
 }
