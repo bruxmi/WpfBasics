@@ -78,6 +78,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -133,6 +134,7 @@
       <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Services\MessageDialogService.cs" />
+    <Compile Include="View\TreeViewItemHelper.cs" />
     <Compile Include="Wrapper\AddressWrapper.cs" />
     <Compile Include="Wrapper\ChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\FriendEmailWrapper.cs" />
@@ -188,6 +190,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -213,7 +216,9 @@
       <Name>WpfViewModelBasics.ViewModelMapping</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\UserGroup.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

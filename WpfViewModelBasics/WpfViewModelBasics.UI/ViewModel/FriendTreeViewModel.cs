@@ -24,6 +24,7 @@
             get { return GetValue<string>(); }
             set { SetValue(value); }
         }
+
     }
 
     public class Group : Item
@@ -36,18 +37,6 @@
 
     }
 
-
-    public class MenuItem
-    {
-        public MenuItem()
-        {
-            this.Items = new ObservableCollection<MenuItem>();
-        }
-
-        public string Title { get; set; }
-
-        public ObservableCollection<MenuItem> Items { get; set; }
-    }
 
     public class FriendTreeViewModel : ViewModelBase, IFriendTreeViewModel
     {
