@@ -11,94 +11,6 @@
     <UserControl.Resources>
         <BitmapImage x:Key="MyImageSource" UriSource="pack://application:,,,/Resources/UserGroup.png" />
 
-        <Style x:Key="IconImageStyleSmall" TargetType="Image">
-            <Setter Property="MaxWidth" Value="16"/>
-            <Setter Property="MaxHeight" Value="16"/>
-            <Setter Property="Margin" Value="1"/>
-        </Style>
-
-
-
-        <Style x:Key="ExpandCollapseToggleStyle" TargetType="ToggleButton">
-            <Setter Property="Focusable" Value="False"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Grid Width="15" Height="13" Background="Transparent">
-                            <Path x:Name="ExpandPath" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,1,1,1" Fill="Black" Data="M 4 0 L 8 4 L 4 8 Z"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Data" TargetName="ExpandPath" Value="M 0 4 L 8 4 L 4 8 Z"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="s_tviListStyle" TargetType="{x:Type TreeViewItem}">
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="VerticalContentAlignment"  Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-            <Setter Property="Padding" Value="0,0,0,0"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TreeViewItem}">
-                        <StackPanel Orientation="Vertical" Background="Transparent" >
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <ToggleButton Width="19" Grid.Row="0" Grid.Column="0" x:Name="Expander" Style="{StaticResource ExpandCollapseToggleStyle}" IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" />
-                                <Border HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1">
-                                    <ContentPresenter x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="Left"/>
-                                </Border>
-                            </Grid>
-                            <Border HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1">
-                                <!--verschiebt den toggleButton-->
-                                <ItemsPresenter  HorizontalAlignment="Left" x:Name="ItemsHost" Margin="3,0,0,0"/>
-                            </Border>
-                        </StackPanel>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsExpanded" Value="false">
-                                <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed"/>
-                            </Trigger>
-                            <Trigger Property="HasItems" Value="false">
-                                <Setter TargetName="Expander" Property="Visibility" Value="Hidden"/>
-                            </Trigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="HasHeader" Value="false"/>
-                                    <Condition Property="Width" Value="Auto"/>
-                                </MultiTrigger.Conditions>
-                                <Setter TargetName="PART_Header" Property="MinWidth" Value="75"/>
-                            </MultiTrigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="HasHeader" Value="false"/>
-                                    <Condition Property="Height" Value="Auto"/>
-                                </MultiTrigger.Conditions>
-                                <Setter TargetName="PART_Header" Property="MinHeight" Value="19"/>
-                            </MultiTrigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsSelected" Value="true"/>
-                                    <Condition Property="IsSelectionActive" Value="false"/>
-                                </MultiTrigger.Conditions>
-                                <Setter Property="BorderBrush" Value="BlueViolet"/>
-                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-                            </MultiTrigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <Style x:Key="TreeViewItemStyle1" TargetType="{x:Type TreeViewItem}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -155,8 +67,6 @@
                         </Setter.Value>
                     </Setter>
                 </Trigger>
-
-
                 <MultiTrigger>
                     <MultiTrigger.Conditions>
                         <Condition Property="helper:TreeViewItemHelper.IsMouseDirectlyOverItem" Value="True" />
