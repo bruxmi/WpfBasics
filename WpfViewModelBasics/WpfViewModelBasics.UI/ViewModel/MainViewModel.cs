@@ -21,12 +21,14 @@
         public MainViewModel(IEventAggregator eventAggregator,
             IFriendNavigationViewModel navigationViewModel,
             Func<IFriendEditViewModel> friendEditViewModelCreator,
-            IMessageDialogService messageDialogService)
+            IMessageDialogService messageDialogService,
+            IFriendTreeViewModel friendTreeViewModel)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<OpenFriendEditViewEvent>().Subscribe(async a => await OnOpenFriendTab(a));
             _eventAggregator.GetEvent<DeleteFriendEvent>().Subscribe(a => DeleteFriendEditViewExecute(a));
 
+            this.FriendTreeViewModel = friendTreeViewModel;
             _friendEditViewModelCreator = friendEditViewModelCreator;
             _messageDialogService = messageDialogService;
             NavigationViewModel = navigationViewModel;
@@ -36,6 +38,12 @@
         }
 
         public ObservableCollection<IFriendEditViewModel> FriendEditViewModels { get; }
+
+        public IFriendTreeViewModel FriendTreeViewModel
+        {
+            get { return GetValue<IFriendTreeViewModel>(); }
+            set { SetValue(value); }
+        }
 
         public IFriendEditViewModel SelectedFriendEditViewModel
         {

@@ -55,10 +55,6 @@
       <HintPath>..\packages\MahApps.Metro.1.4.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MediatR.2.1.0\lib\net45\MediatR.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -82,6 +78,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -123,15 +120,21 @@
     <Compile Include="ViewModel\FriendEditViewModel.cs" />
     <Compile Include="ViewModel\FriendNavigationItemViewModel.cs" />
     <Compile Include="ViewModel\FriendNavigationViewModel.cs" />
+    <Compile Include="ViewModel\FriendTreeViewModel.cs" />
+    <Compile Include="Interfaces\IFriendTreeViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Observable.cs" />
     <Compile Include="View\FriendEditView.xaml.cs">
       <DependentUpon>FriendEditView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FriendTreeView.xaml.cs">
+      <DependentUpon>FriendTreeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NavigationView.xaml.cs">
       <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Services\MessageDialogService.cs" />
+    <Compile Include="View\TreeViewItemHelper.cs" />
     <Compile Include="Wrapper\AddressWrapper.cs" />
     <Compile Include="Wrapper\ChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\FriendEmailWrapper.cs" />
@@ -146,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\FriendEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FriendTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +190,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -199,10 +207,6 @@
       <Project>{c5330ca2-4930-424f-be62-a9afc8f76d96}</Project>
       <Name>WpfViewModelBasics.Core.Registration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WpfViewModelBasics.Core.Requests\WpfViewModelBasics.Core.Requests.csproj">
-      <Project>{AFE65C43-7A69-467B-AA2A-BAD43049BD30}</Project>
-      <Name>WpfViewModelBasics.Core.Requests</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WpfViewModelBasics.Core\WpfViewModelBasics.Core.csproj">
       <Project>{82042b1a-b588-450a-b02f-27ca0abcd3af}</Project>
       <Name>WpfViewModelBasics.Core</Name>
@@ -212,7 +216,9 @@
       <Name>WpfViewModelBasics.ViewModelMapping</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\UserGroup.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

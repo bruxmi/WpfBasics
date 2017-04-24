@@ -14,7 +14,7 @@ namespace WpfViewModelBasics.Core.Registration
         public static void InitializeBusinessWithAutoac(this ContainerBuilder container)
         {
             container.InjectMiscWithAutofac();
-            container.InjectMediatorWithAutofac();
+            container.InjectBusinessServices();
         }
     }
 }

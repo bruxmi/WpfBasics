@@ -14,6 +14,7 @@ namespace WpfViewModelBasics.UI.StartUp.Container
         {
             container.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
             container.RegisterType<FriendEditViewModel>().As<IFriendEditViewModel>();
+            container.RegisterType<FriendTreeViewModel>().As<IFriendTreeViewModel>();
             container.RegisterType<FriendNavigationViewModel>().As<IFriendNavigationViewModel>();
             container.RegisterType<MainViewModel>().AsSelf();
         }

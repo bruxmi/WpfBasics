@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="WpfViewModelBasics.UI.View.FriendTreeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:treeItems="clr-namespace:WpfViewModelBasics.UI.ViewModel"
+             xmlns:helper="clr-namespace:WpfViewModelBasics.UI.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <BitmapImage x:Key="MyImageSource" UriSource="pack://application:,,,/Resources/UserGroup.png" />
+
+        <Style x:Key="TreeViewItemStyle1" TargetType="{x:Type TreeViewItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="19" Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}"/>
+                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="1" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                            <ItemsPresenter x:Name="ItemsHost" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" Margin="-12,0,0,0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="false">
+                                <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="IsSelectionActive" Value="false"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="VirtualizingStackPanel.IsVirtualizing" Value="true">
+                    <Setter Property="ItemsPanel">
+                        <Setter.Value>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="helper:TreeViewItemHelper.IsMouseDirectlyOverItem" Value="True" />
+                        <Condition Property="IsSelected" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" Value="#E5F3FB" />
+                    <Setter Property="BorderBrush" Value="#70C0E7" />
+                </MultiTrigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected" Value="True" />
+                        <Condition Property="IsSelectionActive" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="BorderBrush" Value="#DADADA" />
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
+
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#CBE8F6" />
+        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#F6F6F6" />
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+        <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black" />
+    </UserControl.Resources>
+
+    <Grid>
+        <TreeView Name="GroupView" Grid.Row="0" Grid.Column="0" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource TreeViewItemStyle1}">
+
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type treeItems:Group}" ItemsSource="{Binding Items}" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource MyImageSource}" Width="16" Height="16" SnapsToDevicePixels="True"></Image>
+                        <CheckBox IsChecked="True" Margin="3,0,0,0"/>
+                        <TextBlock Text="{Binding Path=Name}" Margin="3,0,0,0"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type treeItems:Entry}" ItemsSource="{Binding Items}">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="True" Margin="20,0,0,0"/>
+                        <TextBlock Text="{Binding Path=Name}"/>
+                    </StackPanel>                
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+    </Grid>
+</UserControl>
