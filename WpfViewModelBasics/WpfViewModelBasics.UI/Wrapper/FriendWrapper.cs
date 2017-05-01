@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -16,21 +17,9 @@ namespace WpfViewModelBasics.UI.Wrapper
     {
         public FriendWrapper(FriendVm model) : base(model)
         {
-            InitializeComplexProperties(model);
-            InitializeCollectionProperties(model);
         }
 
-        private void InitializeCollectionProperties(FriendVm model)
-        {
-            if (model.Emails == null)
-            {
-                throw new ArgumentException("Emails cannot be null");
-            }
-            Emails = new ChangeTrackingCollection<FriendEmailWrapper>(model.Emails.Select(e => new FriendEmailWrapper(e)));
-            RegisterCollection(Emails, model.Emails);
-        }
-
-        private void InitializeComplexProperties(FriendVm model)
+        protected override void InitializeComplexProperties(FriendVm model)
         {
             if (model.Address == null)
             {
@@ -38,6 +27,16 @@ namespace WpfViewModelBasics.UI.Wrapper
             }
             Address = new AddressWrapper(model.Address);
             RegisterComplexProperties(Address);
+        }
+
+        protected override void InitializeCollectionProperties(FriendVm model)
+        {
+            if (model.Emails == null)
+            {
+                throw new ArgumentException("Emails cannot be null");
+            }
+            Emails = new ChangeTrackingCollection<FriendEmailWrapper>(model.Emails.Select(e => new FriendEmailWrapper(e)));
+            RegisterCollection(Emails, model.Emails);
         }
 
         public string FirstName
@@ -96,5 +95,16 @@ namespace WpfViewModelBasics.UI.Wrapper
         public AddressWrapper Address { get; private set; }
         public ChangeTrackingCollection<FriendEmailWrapper> Emails { get; private set; }
 
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (string.IsNullOrWhiteSpace(this.FirstName))
+            {
+                yield return new ValidationResult("Firstname is required", new[] { nameof(this.FirstName) });
+            }
+            if (this.IsDeveloper && this.Emails.Count == 0)
+            {
+                yield return new ValidationResult("A developer must have an email-address", new [] { nameof(IsDeveloper), nameof(this.Emails) });
+            }
+        }
     }
 }

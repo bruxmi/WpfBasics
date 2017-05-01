@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,8 @@ namespace WpfViewModelBasics.UI.Wrapper
 
         public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Email is not a valid email address")]
         public string Email
         {
             get { return GetValue<string>(); }

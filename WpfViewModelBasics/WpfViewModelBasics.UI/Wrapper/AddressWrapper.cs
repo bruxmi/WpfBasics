@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace WpfViewModelBasics.UI.Wrapper
 
         public bool IdIsChanged => GetIsChanged(nameof(this.Id));
 
+        [Required(ErrorMessage = "City is required")]
         public string City
         {
             get { return GetValue<string>(); }

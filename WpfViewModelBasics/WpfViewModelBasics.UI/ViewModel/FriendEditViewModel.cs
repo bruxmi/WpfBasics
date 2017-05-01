@@ -15,6 +15,7 @@
     using ViewModelMapping.ViewModel;
     using WpfViewModelBasics.Core.Interfaces.Services.Query;
     using WpfViewModelBasics.Core.Interfaces.Services.Command;
+    using System;
 
     public class FriendEditViewModel : ViewModelBase, IFriendEditViewModel
     {
@@ -43,10 +44,15 @@
             this._addressCommandService = addressCommandService;
 
             DeleteFriendCommand = new AsyncDelegateCommand(async a => await OnDeleteFriendExecute(a));
-            SaveFriendCommand = new AsyncDelegateCommand(async a => await OnSaveExecute(a));
+            SaveFriendCommand = new AsyncDelegateCommand(async a => await OnSaveExecute(a), OnSaveCanExecute);
             RemoveFriendEmailCommand = new DelegateCommand(OnRemoveFriendEmail);
             RejectChangesCommand = new DelegateCommand(OnRejectChangesExecute);
             AddFriendEmailCommand = new DelegateCommand(OnAddFriendEmailExecute);
+        }
+
+        private bool OnSaveCanExecute(object obj)
+        {
+            return this.Friend.IsChanged && this.Friend.IsValid;
         }
 
         public async Task Load(int? friendId = null)
@@ -170,5 +176,6 @@
                 Friend.Emails.Remove(SelectedFriendEmail);
             }
         }
+
     }
 }

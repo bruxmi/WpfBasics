@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -63,6 +64,10 @@
     <Compile Include="Wrapper\ChangeTrackingCollectionTests.cs" />
     <Compile Include="Wrapper\ChangeTrackingComplexPropertyTests.cs" />
     <Compile Include="Wrapper\ChangeTrackingSimplePropertiesTests.cs" />
+    <Compile Include="Wrapper\ValidateComplexProperty.cs" />
+    <Compile Include="Wrapper\ValidationClassLevel.cs" />
+    <Compile Include="Wrapper\ValidationCollectionProperty.cs" />
+    <Compile Include="Wrapper\ValidationSimpleProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WpfViewModelBasics.Core\WpfViewModelBasics.Core.csproj">

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -10,10 +11,10 @@ using WpfViewModelBasics.UI.ViewModel;
 
 namespace WpfViewModelBasics.UI.Wrapper
 {
-    public class ModelWrapper<T> : Observable, IRevertibleChangeTracking
+    public class ModelWrapper<T> : NotifyDataErrorInfoBase, IValidatableTrackingObject, IValidatableObject
     {
         private readonly Dictionary<string, object> _originalValues;
-        private readonly List<IRevertibleChangeTracking> _trackingObjects;
+        private readonly List<IValidatableTrackingObject> _trackingObjects;
 
         private const string IsChangedPostFix = "IsChanged";
 
@@ -25,18 +26,25 @@ namespace WpfViewModelBasics.UI.Wrapper
             }
             this.Model = model;
             this._originalValues = new Dictionary<string, object>();
-            this._trackingObjects = new List<IRevertibleChangeTracking>();
+            this._trackingObjects = new List<IValidatableTrackingObject>();
+            InitializeComplexProperties(model);
+            InitializeCollectionProperties(model);
+            this.Validate();
+        }
+
+        protected virtual void InitializeComplexProperties(T model)
+        {
+        }
+
+        protected virtual void InitializeCollectionProperties(T model)
+        {
         }
 
         public T Model { get; set; }
 
-        public bool IsChanged
-        {
-            get
-            {
-                return this._originalValues.Any() || this._trackingObjects.Any(a => a.IsChanged);
-            }
-        }
+        public bool IsChanged => this._originalValues.Any() || this._trackingObjects.Any(a => a.IsChanged);
+
+        public bool IsValid => !this.HasErrors && _trackingObjects.All(t => t.IsValid);
 
         public void RejectChanges()
         {
@@ -50,6 +58,7 @@ namespace WpfViewModelBasics.UI.Wrapper
             {
                 trackingObject.RejectChanges();
             }
+            this.Validate();
             OnPropertyChanged("");
         }
 
@@ -69,11 +78,34 @@ namespace WpfViewModelBasics.UI.Wrapper
             var currentValue = propertyInfo.GetValue(Model);
             if (!Equals(currentValue, newValue))
             {
-                UpdateOriginalValue(currentValue, newValue,propertyName);
+                UpdateOriginalValue(currentValue, newValue, propertyName);
                 propertyInfo.SetValue(Model, newValue);
+                Validate();
                 OnPropertyChanged(propertyName);
                 OnPropertyChanged(propertyName + IsChangedPostFix);
             }
+        }
+
+        private void Validate()
+        {
+            ClearErrors();
+            var results = new List<ValidationResult>();
+            var context = new ValidationContext(this);
+            Validator.TryValidateObject(this, context, results, true);
+            if (results.Any())
+            {
+                var propertyNames = results.SelectMany(a => a.MemberNames).Distinct().ToList();
+                foreach (var propertyName in propertyNames)
+                {
+                    this.Errors[propertyName] = results
+                        .Where(a => a.MemberNames.Contains(propertyName))
+                        .Select(a => a.ErrorMessage)
+                        .Distinct()
+                        .ToList();
+                    OnErrorsChanged(propertyName);
+                }
+            }
+            OnPropertyChanged(nameof(this.IsValid));
         }
 
         protected void UpdateOriginalValue(object currentValue, object newValue, string propertyName)
@@ -100,7 +132,7 @@ namespace WpfViewModelBasics.UI.Wrapper
         protected TValue GetOriginalValue<TValue>(string propertyName)
         {
             var result = this._originalValues.ContainsKey(propertyName)
-                ? (TValue) this._originalValues[propertyName]
+                ? (TValue)this._originalValues[propertyName]
                 : GetValue<TValue>(propertyName);
             return result;
         }
@@ -118,6 +150,7 @@ namespace WpfViewModelBasics.UI.Wrapper
             {
                 modelCollection.Clear();
                 modelCollection.AddRange(wrapperCollection.Select(a => a.Model));
+                Validate();
             };
             RegisterTrackingObject(wrapperCollection);
         }
@@ -127,8 +160,7 @@ namespace WpfViewModelBasics.UI.Wrapper
             RegisterTrackingObject(wrapper);
         }
 
-        private void RegisterTrackingObject<TTrackingObject>(TTrackingObject trackingObject)
-            where TTrackingObject : IRevertibleChangeTracking, INotifyPropertyChanged
+        private void RegisterTrackingObject(IValidatableTrackingObject trackingObject)
         {
             if (!this._trackingObjects.Contains(trackingObject))
             {
@@ -143,6 +175,15 @@ namespace WpfViewModelBasics.UI.Wrapper
             {
                 OnPropertyChanged(nameof(IsChanged));
             }
+            else if (e.PropertyName == nameof(IsValid))
+            {
+                OnPropertyChanged(nameof(IsValid));
+            }
+        }
+
+        public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            yield break;
         }
     }
 }
