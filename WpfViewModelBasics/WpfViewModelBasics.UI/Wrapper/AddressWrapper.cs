@@ -9,16 +9,16 @@ using WpfViewModelBasics.ViewModelMapping.ViewModel;
 
 namespace WpfViewModelBasics.UI.Wrapper
 {
-    public class AddressWrapper:ModelWrapper<AddressVm>
+    public class AddressWrapper : ModelWrapper<AddressVm>
     {
-        public AddressWrapper(AddressVm model): base(model)
+        public AddressWrapper(AddressVm model) : base(model)
         {
         }
 
         public int Id
         {
             get { return GetValue<int>(); }
-            set { SetValue(value);}
+            set { SetValue(value); }
         }
 
         public string IdOriginalValue => GetOriginalValue<string>(nameof(this.Id));
@@ -57,7 +57,10 @@ namespace WpfViewModelBasics.UI.Wrapper
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            yield return new CustomErrorResult("City is required", new[] { nameof(City) }, CustomErrorResult.ErrorLevel.Warning);
+            if (string.IsNullOrWhiteSpace(this.City))
+            {
+                yield return new CustomErrorResult("City is required", new[] { nameof(City) }, CustomErrorResult.ErrorLevel.Warning);
+            }
         }
     }
 }

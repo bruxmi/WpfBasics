@@ -35,9 +35,9 @@ namespace WpfViewModelBasics.UnitTests.Wrapper
             wrapper.FirstName = "";
             Assert.IsTrue(wrapper.HasErrors);
 
-            var errors = wrapper.GetErrors(nameof(wrapper.FirstName)).Cast<string>();
+            var errors = wrapper.GetErrors(nameof(wrapper.FirstName)).Cast<CustomErrorResult>();
             Assert.AreEqual(1, errors.Count());
-            Assert.AreEqual("Firstname is required", errors.First());
+            Assert.AreEqual("Firstname is required", errors.First().ErrorMessage);
 
             wrapper.FirstName = "Julia";
             Assert.IsFalse(wrapper.HasErrors);
@@ -107,9 +107,9 @@ namespace WpfViewModelBasics.UnitTests.Wrapper
             Assert.IsFalse(wrapper.IsValid);
             Assert.IsTrue(wrapper.HasErrors);
 
-            var errors = wrapper.GetErrors(nameof(wrapper.FirstName)).Cast<string>();
+            var errors = wrapper.GetErrors(nameof(wrapper.FirstName)).Cast<CustomErrorResult>();
             Assert.AreEqual(1, errors.Count());
-            Assert.AreEqual("Firstname is required", errors.First());
+            Assert.AreEqual("Firstname is required", errors.First().ErrorMessage);
         }
 
         [TestMethod]

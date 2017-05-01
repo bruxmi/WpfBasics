@@ -42,13 +42,13 @@ namespace WpfViewModelBasics.UnitTests.Wrapper
             wrapper.IsDeveloper = true;
             Assert.IsFalse(wrapper.IsValid);
 
-            var emailsErrors = wrapper.GetErrors(nameof(wrapper.Emails)).Cast<string>().ToList();
+            var emailsErrors = wrapper.GetErrors(nameof(wrapper.Emails)).Cast<CustomErrorResult>().ToList();
             Assert.AreEqual(1, emailsErrors.Count);
-            Assert.AreEqual(expectedError, emailsErrors.Single());
+            Assert.AreEqual(expectedError, emailsErrors.Single().ErrorMessage);
 
-            var isDeveloperErrors = wrapper.GetErrors(nameof(wrapper.IsDeveloper)).Cast<string>().ToList();
+            var isDeveloperErrors = wrapper.GetErrors(nameof(wrapper.IsDeveloper)).Cast<CustomErrorResult>().ToList();
             Assert.AreEqual(1, isDeveloperErrors.Count);
-            Assert.AreEqual(expectedError, isDeveloperErrors.Single());
+            Assert.AreEqual(expectedError, isDeveloperErrors.Single().ErrorMessage);
         }
 
         [TestMethod]
