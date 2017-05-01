@@ -90,18 +90,20 @@ namespace WpfViewModelBasics.UI.Wrapper
         {
             ClearErrors();
             var results = new List<ValidationResult>();
+            var customErrors = new List<CustomErrorResult>();
             var context = new ValidationContext(this);
             Validator.TryValidateObject(this, context, results, true);
             if (results.Any())
             {
+                foreach (var result in results)
+                {
+                    var error = (CustomErrorResult)result;
+                    customErrors.Add(error);
+                }
                 var propertyNames = results.SelectMany(a => a.MemberNames).Distinct().ToList();
                 foreach (var propertyName in propertyNames)
                 {
-                    this.Errors[propertyName] = results
-                        .Where(a => a.MemberNames.Contains(propertyName))
-                        .Select(a => a.ErrorMessage)
-                        .Distinct()
-                        .ToList();
+                    this.Errors[propertyName] = customErrors.Where(a => a.MemberNames.Contains(propertyName)).Select(a => a).Distinct().ToList();
                     OnErrorsChanged(propertyName);
                 }
             }
@@ -186,4 +188,21 @@ namespace WpfViewModelBasics.UI.Wrapper
             yield break;
         }
     }
+
+    public class CustomErrorResult : ValidationResult
+    {
+        public enum ErrorLevel
+        {
+            Error,
+            Warning
+        }
+
+        public ErrorLevel Level { get; }
+
+        public CustomErrorResult(string errorMessage, string[] propertyNames, ErrorLevel level) : base(errorMessage, propertyNames)
+        {
+            this.Level = level;
+        }
+    }
+
 }

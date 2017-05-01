@@ -5,17 +5,18 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfViewModelBasics.UI.Validation;
 using WpfViewModelBasics.UI.ViewModel;
 
 namespace WpfViewModelBasics.UI.Wrapper
 {
     public class NotifyDataErrorInfoBase : Observable, INotifyDataErrorInfo
     {
-        protected readonly Dictionary<string, List<string>> Errors;
+        protected readonly Dictionary<string, List<CustomErrorResult>> Errors;
 
         public NotifyDataErrorInfoBase()
         {
-            this.Errors = new Dictionary<string, List<string>>();
+            this.Errors = new Dictionary<string, List<CustomErrorResult>>();
         }
 
         public bool HasErrors => this.Errors.Any();
@@ -24,12 +25,16 @@ namespace WpfViewModelBasics.UI.Wrapper
 
         public IEnumerable GetErrors(string propertyName)
         {
-            return propertyName != null && this.Errors.ContainsKey(propertyName) ? Errors[propertyName]: Enumerable.Empty<string>();
+            if (propertyName != null && this.Errors.ContainsKey(propertyName))
+            {
+                return Errors[propertyName];
+            }
+            return Enumerable.Empty<string>();
         }
 
         protected virtual void OnErrorsChanged(string propertyName)
         {
-           ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
 
         protected void ClearErrors()

@@ -4,13 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfViewModelBasics.UI.View"
+             xmlns:wrapper="clr-namespace:WpfViewModelBasics.UI.Wrapper"
+             xmlns:converter="clr-namespace:WpfViewModelBasics.UI.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800" Background="White">
     <UserControl.Resources>
+        <converter:ValidationResultConverter x:Key="converter" />
+
         <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
             <Setter Property="FontSize" Value="14" />
             <Setter Property="FontFamily" Value="Calibri" />
             <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="ErrorStyle">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                    <Setter Property="Background" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent.Level, Converter={StaticResource converter}, UpdateSourceTrigger=PropertyChanged}"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -38,7 +51,7 @@
             <Label Content="Birthday" Margin="5" Grid.Column="0" Grid.Row="2"/>
             <Label Content="Is Developer" Margin="5 0" Grid.Column="0" Grid.Row="3"/>
 
-            <TextBox Text="{Binding Friend.FirstName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0"/>
+            <TextBox Style="{StaticResource ErrorStyle}" Text="{Binding Friend.FirstName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0"/>
             <TextBox Text="{Binding Friend.LastName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
             <DatePicker Height="20" SelectedDate="{Binding Friend.Birthday,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2"/>
             <CheckBox IsChecked="{Binding Friend.IsDeveloper, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3"/>

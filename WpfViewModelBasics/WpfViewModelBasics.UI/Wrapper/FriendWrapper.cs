@@ -99,12 +99,13 @@ namespace WpfViewModelBasics.UI.Wrapper
         {
             if (string.IsNullOrWhiteSpace(this.FirstName))
             {
-                yield return new ValidationResult("Firstname is required", new[] { nameof(this.FirstName) });
+                yield return new CustomErrorResult("Firstname is required", new[] { nameof(this.FirstName) }, CustomErrorResult.ErrorLevel.Warning);
             }
             if (this.IsDeveloper && this.Emails.Count == 0)
             {
-                yield return new ValidationResult("A developer must have an email-address", new [] { nameof(IsDeveloper), nameof(this.Emails) });
+                yield return new CustomErrorResult("A developer must have an email-address", new[] { nameof(IsDeveloper), nameof(this.Emails) }, CustomErrorResult.ErrorLevel.Warning);
             }
         }
     }
+
 }

@@ -9,12 +9,12 @@ using WpfViewModelBasics.ViewModelMapping.ViewModel;
 
 namespace WpfViewModelBasics.UI.Wrapper
 {
-    public class FriendEmailWrapper: ModelWrapper<FriendEmailVm>
+    public class FriendEmailWrapper : ModelWrapper<FriendEmailVm>
     {
 
-        public FriendEmailWrapper(FriendEmailVm model): base(model)
+        public FriendEmailWrapper(FriendEmailVm model) : base(model)
         {
-            
+
         }
         public int Id
         {
@@ -26,8 +26,6 @@ namespace WpfViewModelBasics.UI.Wrapper
 
         public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Email is not a valid email address")]
         public string Email
         {
             get { return GetValue<string>(); }
@@ -38,5 +36,17 @@ namespace WpfViewModelBasics.UI.Wrapper
 
         public bool EmailIsChanged => GetIsChanged(nameof(Email));
 
+
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (string.IsNullOrWhiteSpace(Email))
+            {
+                yield return new CustomErrorResult("Email is required", new[] { nameof(this.Email) }, CustomErrorResult.ErrorLevel.Error);
+            }
+            if (!new EmailAddressAttribute().IsValid(Email))
+            {
+                yield return new CustomErrorResult("Email is not a valid email address", new[] { nameof(this.Email) }, CustomErrorResult.ErrorLevel.Error);
+            }
+        }
     }
 }

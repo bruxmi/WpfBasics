@@ -104,6 +104,7 @@
     <Compile Include="Command\AsyncDelegateCommand.cs" />
     <Compile Include="Command\DelegateCommand.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converter\ValidationResultConverter.cs" />
     <Compile Include="Enums\MessageDialogResult.cs" />
     <Compile Include="Events\CloseFriendEditViewEvent.cs" />
     <Compile Include="Events\DeleteFriendEvent.cs" />
@@ -116,6 +117,8 @@
     <Compile Include="StartUp\Container\ViewServiceContainer.cs" />
     <Compile Include="StartUp\ViewModelBootstrapper.cs" />
     <Compile Include="StartUp\Container\ViewModelContainer.cs" />
+    <Compile Include="Validation\CustomErrorType.cs" />
+    <Compile Include="Validation\FriendWrapperValidationService.cs" />
     <Compile Include="ViewModel\Base\ViewModelBase.cs" />
     <Compile Include="ViewModel\FriendEditViewModel.cs" />
     <Compile Include="ViewModel\FriendNavigationItemViewModel.cs" />
