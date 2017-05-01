@@ -25,7 +25,6 @@ namespace WpfViewModelBasics.UI.Wrapper
 
         public bool IdIsChanged => GetIsChanged(nameof(this.Id));
 
-        [Required(ErrorMessage = "City is required")]
         public string City
         {
             get { return GetValue<string>(); }
@@ -55,5 +54,10 @@ namespace WpfViewModelBasics.UI.Wrapper
         public string StreetOriginalValue => GetOriginalValue<string>(nameof(this.Street));
 
         public bool StreetIsChanged => GetIsChanged(nameof(this.Street));
+
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            yield return new CustomErrorResult("City is required", new[] { nameof(City) }, CustomErrorResult.ErrorLevel.Warning);
+        }
     }
 }
